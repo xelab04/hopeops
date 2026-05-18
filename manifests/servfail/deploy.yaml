@@ -22,7 +22,10 @@ spec:
       containers:
       - image: registry.alexbissessur.dev/servfailupdate:latest
         name: servfailupdate
-        resources: {}
+        resources:
+          requests:
+            cpu: 10m
+            memory: 25M
 
         env:
          - name: TOKEN

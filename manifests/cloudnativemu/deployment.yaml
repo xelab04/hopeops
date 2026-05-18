@@ -29,7 +29,7 @@ spec:
 
           resources:
             requests:
-              cpu: 5m
-              memory: 200Mi
+              cpu: 25m
+              memory: 300Mi
 
       restartPolicy: Always

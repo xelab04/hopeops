@@ -16,9 +16,9 @@ spec:
         image: binwiederhier/ntfy
         args: ["serve"]
         resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+          requests:
+            memory: "100M"
+            cpu: "20m"
         ports:
         - containerPort: 80
           name: http
