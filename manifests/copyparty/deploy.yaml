@@ -25,7 +25,10 @@ spec:
             - "-1"
         ports:
         - containerPort: 3923
-        resources: {}
+        resources:
+          requests:
+            cpu: 10m
+            memory: 100M
 
         volumeMounts:
           - mountPath: /w
