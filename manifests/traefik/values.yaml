@@ -14,8 +14,8 @@ additionalArguments:
   - "--providers.kubernetesingress.allowEmptyServices=true"
   - "--providers.kubernetesingress.ingressendpoint.publishedservice=kube-system/traefik"
 
-dashboard:
-  enabled: true
+# dashboard:
+#   enabled: true
 
 logs:
   general:
@@ -29,15 +29,15 @@ metrics:
     addServicesLabels: true
 
 
-entryPoints:
-  websecure:
-    address: ":443"
-    proxyProtocol:
-      trustedIPs:
-        - "127.0.0.1/32"
-        - "172.16.0.0/12"
-        - "10.42.0.0/16"
-        - "192.168.0.0/24"
+# entryPoints:
+#   websecure:
+#     address: ":443"
+#     proxyProtocol:
+#       trustedIPs:
+#         - "127.0.0.1/32"
+#         - "172.16.0.0/12"
+#         - "10.42.0.0/16"
+#         - "192.168.0.0/24"
 
 ports:
   ssh:
