@@ -12,3 +12,5 @@ spec:
     path: manifests/uptimekuma
     repoURL: https://github.com/xelab04/kates.git
     targetRevision: HEAD
+  syncPolicy:
+    automated: {}

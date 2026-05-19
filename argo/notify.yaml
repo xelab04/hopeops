@@ -12,3 +12,5 @@ spec:
     path: manifests/notify
     repoURL: https://github.com/xelab04/kates.git
     targetRevision: HEAD
+  syncPolicy:
+    automated: {}
