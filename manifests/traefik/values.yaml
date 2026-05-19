@@ -1,0 +1,71 @@
+additionalArguments:
+  - "--entryPoints.kraft.address=:1337"
+  - "--entryPoints.ssh.address=:24"
+  - "--certificatesresolvers.le.acme.email=alexbissessur@gmail.com"
+  - "--certificatesresolvers.le.acme.storage=/data/acme.json"
+  - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=websecure"
+  # - "--accesslog=true"
+  # - "--accesslog.format=json"
+  #- "--accesslog.fields.defaultmode=keep"
+  #- "--accesslog.fields.headers.defaultmode=keep"
+  - "--entrypoints.web.forwardedHeaders.trustedIPs=10.42.0.0/16,127.0.0.1/32"
+  - "--entrypoints.websecure.forwardedHeaders.trustedIPs=10.42.0.0/16,127.0.0.1/32"
+  - "--providers.kubernetescrd.allowEmptyServices=true"
+  - "--providers.kubernetesingress.allowEmptyServices=true"
+  - "--providers.kubernetesingress.ingressendpoint.publishedservice=kube-system/traefik"
+
+dashboard:
+  enabled: true
+
+logs:
+  general:
+    level: INFO
+
+metrics:
+  prometheus:
+    enabled: true
+    entryPoint: metrics
+    addRoutersLabels: true
+    addServicesLabels: true
+
+
+entryPoints:
+  websecure:
+    address: ":443"
+    proxyProtocol:
+      trustedIPs:
+        - "127.0.0.1/32"
+        - "172.16.0.0/12"
+        - "10.42.0.0/16"
+        - "192.168.0.0/24"
+
+ports:
+  ssh:
+    port: 24
+    expose:
+      default: true
+    protocol: TCP
+  kraft:
+    port: 1337
+    expose:
+      default: true
+    protocol: TCP
+
+persistence:
+  enabled: true
+  name: "acme"
+  accessMode: ReadWriteMany
+  size: 128Mi
+  path: /data
+
+providers:
+  kubernetesCRD:
+    allowCrossNamespace: true
+
+#certificatesResolvers:
+#  le:
+#    acme:
+#      email: alexbissessur@gmail.com
+#      storage: acme.json
+#      httpChallenge:
+#        entryPoint: web

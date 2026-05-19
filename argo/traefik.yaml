@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+  namespace: argocd
+spec:
+  destination:
+    namespace: traefik-system
+    server: https://kubernetes.default.svc
+  project: default
+  sources:
+    - repoURL: https://github.com/xelab04/kates.git
+      targetRevision: main
+      ref: values
+
+    - repoURL: https://traefik.github.io/charts
+      chart: traefik
+      targetRevision: 40.2.0
+      helm:
+        releaseName: traefik
+        valueFiles:
+          - $values/manifests/traefik/values.yaml
+        ignoreMissingValueFiles: false
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
