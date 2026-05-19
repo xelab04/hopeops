@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: towonel
+  name: towonel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: towonel
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: towonel
+    spec:
+      containers:
+      - image: git.erwanleboucher.dev/eleboucher/towonel-agent:latest
+        name: towonel-agent
+        resources: {}
+        envFrom:
+          - configMapRef:
+              name: towonel-hostnames
+          - secretRef:
+              name: towonel-inv-key
+
+status: {}

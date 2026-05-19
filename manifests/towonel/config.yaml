@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: towonel-hostnames
+data:
+  # {"hostname":"*.alexbissessur.dev","origin":"traefik.kube-system.svc.cluster.local:80"},
+  # {"hostname":"alexbissessur.dev","origin":"traefik.kube-system.svc.cluster.local:80"},
+  TOWONEL_AGENT_SERVICES: |
+      [
+        {"hostname":"alexbissessur.dev","origin":"traefik.kube-system.svc.cluster.local:443"},
+        {"hostname":"*.alexbissessur.dev","origin":"traefik.kube-system.svc.cluster.local:443"},
+      ]
