@@ -3,7 +3,7 @@ additionalArguments:
   - "--entryPoints.ssh.address=:24"
   - "--certificatesresolvers.le.acme.email=alexbissessur@gmail.com"
   - "--certificatesresolvers.le.acme.storage=/data/acme.json"
-  - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=websecure"
+  - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=web"
   # - "--accesslog=true"
   # - "--accesslog.format=json"
   #- "--accesslog.fields.defaultmode=keep"
