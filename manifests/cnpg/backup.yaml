@@ -38,7 +38,7 @@ spec:
   schedule: "0 0 23 * * *"  # At 11pm every day
   backupOwnerReference: self
   cluster:
-    name: cnpg-main
+    name: main-postgres
   method: plugin
   pluginConfiguration:
     name: barman-cloud.cloudnative-pg.io
@@ -52,7 +52,7 @@ spec:
 # spec:
 #   method: barmanObjectStore
 #   cluster:
-#     name: cnpg-main
+#     name: main-postgres
 
 ---
 
