@@ -1,0 +1,51 @@
+services:
+  caddy:
+    image: ghcr.io/bjw-s-labs/caddy-l4:2.11.2
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "1337:443"
+      - "8443:8443"
+    volumes:
+      - /root/docker/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - /root/docker/caddy/data:/data
+    networks:
+      - towonel-net
+
+  towonel:
+    # image: git.erwanleboucher.dev/eleboucher/towonel-node:latest
+    image: registry.alexbissessur.dev/towonel-node
+    volumes:
+      - /root/docker/towonel:/var/lib/towonel
+    restart: unless-stopped
+    environment:
+      - TOWONEL_IDENTITY_KEY_PATH=/data/node.key
+      - TOWONEL_INVITE_HASH_KEY=
+      - TOWONEL_HUB_ENABLED=true
+      - TOWONEL_HUB_DB_DRIVER=sqlite
+      - TOWONEL_HUB_DB_DSN=/data/hub.db
+      - TOWONEL_HUB_LISTEN_ADDR=0.0.0.0:8443
+      - TOWONEL_HUB_HEALTH_LISTEN_ADDR=0.0.0.0:9091
+      - TOWONEL_HUB_PUBLIC_URL=https://towonel.alexbissessur.dev
+      - TOWONEL_HUB_OPERATOR_API_KEY_PATH=/data/operator.key
+      - TOWONEL_HUB_URL=http://localhost:8443
+      - TOWONEL_EDGE_ENABLED=true
+      - TOWONEL_EDGE_LISTEN_ADDR=0.0.0.0:4443
+      - TOWONEL_EDGE_HEALTH_LISTEN_ADDR=0.0.0.0:9092
+      - TOWONEL_EDGE_PUBLIC_ADDRESSES=towonel.alexbissessur:443
+      - TOWONEL_EDGE_PROXY_PROTOCOL=true
+      - TOWONEL_EDGE_TLS_CERT_DIR=/data/certs
+      - TOWONEL_EDGE_TLS_ACME_EMAIL=
+      - TOWONEL_EDGE_TLS_HTTP_LISTEN_ADDR=0.0.0.0:8081
+
+    expose:
+      - "4443"
+      - "8081"
+    networks:
+      - towonel-net
+
+networks:
+  towonel-net:
+    driver: bridge
