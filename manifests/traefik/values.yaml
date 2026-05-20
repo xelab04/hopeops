@@ -8,8 +8,6 @@ additionalArguments:
   # - "--accesslog.format=json"
   #- "--accesslog.fields.defaultmode=keep"
   #- "--accesslog.fields.headers.defaultmode=keep"
-  - "--entrypoints.web.forwardedHeaders.trustedIPs=10.42.0.0/16,127.0.0.1/32"
-  - "--entrypoints.websecure.forwardedHeaders.trustedIPs=10.42.0.0/16,127.0.0.1/32"
   - "--providers.kubernetescrd.allowEmptyServices=true"
   - "--providers.kubernetesingress.allowEmptyServices=true"
   - "--providers.kubernetesingress.ingressendpoint.publishedservice=kube-system/traefik"
@@ -28,17 +26,6 @@ metrics:
     addRoutersLabels: true
     addServicesLabels: true
 
-
-# entryPoints:
-#   websecure:
-#     address: ":443"
-#     proxyProtocol:
-#       trustedIPs:
-#         - "127.0.0.1/32"
-#         - "172.16.0.0/12"
-#         - "10.42.0.0/16"
-#         - "192.168.0.0/24"
-
 ports:
   ssh:
     port: 24
@@ -50,6 +37,28 @@ ports:
     expose:
       default: true
     protocol: TCP
+
+  web:
+    forwardedHeaders:
+      trustedIPs:
+        - "10.42.0.0/16"
+        - "127.0.0.1/32"
+    proxyProtocol:
+      trustedIPs:
+        - "10.42.0.0/16"
+        - "127.0.0.1/32"
+        - "192.168.0.0/24"
+  websecure:
+    forwardedHeaders:
+      trustedIPs:
+        - "10.42.0.0/16"
+        - "127.0.0.1/32"
+        - "192.168.0.0/24"
+    proxyProtocol:
+      trustedIPs:
+        - "10.42.0.0/16"
+        - "127.0.0.1/32"
+        - "192.168.0.0/24"
 
 persistence:
   enabled: true
