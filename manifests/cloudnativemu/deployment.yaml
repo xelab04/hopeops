@@ -1,35 +1,35 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app: cloudnativemu
-  name: cloudnativemu
-spec:
-  strategy:
-    type: Recreate
-  replicas: 1
-  selector:
-    matchLabels:
-      app: cloudnativemu
-  template:
-    metadata:
-      labels:
-        app: cloudnativemu
-    spec:
-      containers:
-        - image: alexb04/cloudnativemu
-          name: cloudnativemu
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   labels:
+#     app: cloudnativemu
+#   name: cloudnativemu
+# spec:
+#   strategy:
+#     type: Recreate
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: cloudnativemu
+#   template:
+#     metadata:
+#       labels:
+#         app: cloudnativemu
+#     spec:
+#       containers:
+#         - image: alexb04/cloudnativemu
+#           name: cloudnativemu
 
-          ports:
-          - containerPort: 8000
+#           ports:
+#           - containerPort: 8000
 
-          env:
-            - name: URL
-              value: 0.0.0.0
+#           env:
+#             - name: URL
+#               value: 0.0.0.0
 
-          resources:
-            requests:
-              cpu: 25m
-              memory: 300Mi
+#           resources:
+#             requests:
+#               cpu: 25m
+#               memory: 300Mi
 
-      restartPolicy: Always
+#       restartPolicy: Always
