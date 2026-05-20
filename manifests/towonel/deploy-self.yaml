@@ -19,10 +19,16 @@ spec:
       - image: git.erwanleboucher.dev/eleboucher/towonel-agent:latest
         name: towonel-agent
         resources: {}
-        envFrom:
-          - configMapRef:
-              name: towonel-hostnames
-          - secretRef:
-              name: towonel-inv-key
+        env:
+          - name: TOWONEL_INVITE_TOKEN
+            valueFrom:
+              configMapKeyRef:
+                name: towonel-inv-key
+                key: TOWONEL_SELF_TOKEN
+          - name: TOWONEL_AGENT_SERVICES
+            valueFrom:
+              secretKeyRef:
+                name: towonel-hostnames
+                key: TOWONEL_SELF_SERVICES
 
 status: {}

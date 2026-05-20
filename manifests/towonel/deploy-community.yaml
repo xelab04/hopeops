@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: towonel-community
+  name: towonel-community
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: towonel-community
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: towonel-community
+    spec:
+      containers:
+      - image: git.erwanleboucher.dev/eleboucher/towonel-agent:latest
+        name: towonel-agent
+        resources: {}
+        env:
+          - name: TOWONEL_INVITE_TOKEN
+            valueFrom:
+              configMapKeyRef:
+                name: towonel-inv-key
+                key: TOWONEL_COMMUNITY_TOKEN
+          - name: TOWONEL_AGENT_SERVICES
+            valueFrom:
+              secretKeyRef:
+                name: towonel-hostnames
+                key: TOWONEL_COMMUNITY_SERVICES
+
+status: {}
