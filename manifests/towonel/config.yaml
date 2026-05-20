@@ -3,10 +3,20 @@ kind: ConfigMap
 metadata:
   name: towonel-hostnames
 data:
-  # {"hostname":"*.alexbissessur.dev","origin":"traefik.kube-system.svc.cluster.local:80"},
-  # {"hostname":"alexbissessur.dev","origin":"traefik.kube-system.svc.cluster.local:80"},
-  TOWONEL_AGENT_SERVICES: |
+  TOWONEL_SELF_SERVICES: |
       [
-        {"hostname":"alexbissessur.dev","origin":"traefik.kube-system.svc.cluster.local:443"},
-        {"hostname":"*.alexbissessur.dev","origin":"traefik.kube-system.svc.cluster.local:443"},
+        {"hostname":"alexbissessur.dev","origin":"traefik.traefik-system.svc.cluster.local:443"},
+        {"hostname":"*.alexbissessur.dev","origin":"traefik.traefik-system.svc.cluster.local:443"}
+      ]
+  TOWONEL_KRAFT_SERVICES: |
+      [
+        {"hostname":"kraftcloud.dev","origin":"traefik.traefik-system.svc.cluster.local:443"},
+        {"hostname":"*.kraftcloud.dev","origin":"traefik.traefik-system.svc.cluster.local:443"}
+      ]
+  TOWONEL_COMMUNITY_SERVICES: |
+      [
+        {"hostname":"cloudnativemauritius.com","origin":"traefik.treafik-system.svc.cluster.local:443"},
+        {"hostname":"*.cloudnativemauritius.com","origin":"traefik.traefik-system.svc.cluster.local:443"},
+        {"hostname":"meetup.mu","origin":"traefik.treafik-system.svc.cluster.local:443"},
+        {"hostname":"*.meetup.mu","origin":"traefik.traefik-system.svc.cluster.local:443"}
       ]
