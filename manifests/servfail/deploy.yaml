@@ -38,11 +38,6 @@ spec:
             secretKeyRef:
               name: servfail-secret
               key: TOKENDYN
-         - name: TOKENNYA
-           valueFrom:
-             secretKeyRef:
-               name: servfail-secret
-               key: TOKENNYA
 
         volumeMounts:
         - name: ipstore
