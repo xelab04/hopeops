@@ -1,16 +1,40 @@
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
+# apiVersion: traefik.io/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: naviroute
+# spec:
+#   entryPoints:
+#   - websecure
+#   - web
+#   routes:
+#   - kind: Rule
+#     match: Host(`navidrome.alexbissessur.dev`)
+#     services:
+#     - name: navidrome
+#       port: 80
+#   tls:
+#     certResolver: le
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: naviroute
+  name: gts
+  annotations:
+    cert-manager.io/cluster-issuer: "prod-issuer"
 spec:
-  entryPoints:
-  - websecure
-  - web
-  routes:
-  - kind: Rule
-    match: Host(`navidrome.alexbissessur.dev`)
-    services:
-    - name: navidrome
-      port: 80
+  ingressClassName: traefik
   tls:
-    certResolver: le
+  - hosts:
+    - navidrome.alexbissessur.dev
+    secretName: navidrome-tls
+  rules:
+  - host: navidrome.alexbissessur.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: navidrome
+            port:
+              number: 80

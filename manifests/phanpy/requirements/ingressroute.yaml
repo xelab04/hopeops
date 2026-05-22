@@ -1,16 +1,40 @@
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
+# apiVersion: traefik.io/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: phanpyroute
+# spec:
+#   entryPoints:
+#   - websecure
+#   - web
+#   routes:
+#   - kind: Rule
+#     match: Host(`phanpy.alexbissessur.dev`)
+#     services:
+#     - name: phanpy
+#       port: 8080
+#   tls:
+#     certResolver: le
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: phanpyroute
+  name: gts
+  annotations:
+    cert-manager.io/cluster-issuer: "prod-issuer"
 spec:
-  entryPoints:
-  - websecure
-  - web
-  routes:
-  - kind: Rule
-    match: Host(`phanpy.alexbissessur.dev`)
-    services:
-    - name: phanpy
-      port: 8080
+  ingressClassName: traefik
   tls:
-    certResolver: le
+  - hosts:
+    - phanpy.alexbissessur.dev
+    secretName: phanpy-tls
+  rules:
+  - host: phanpy.alexbissessur.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: phanpy
+            port:
+              number: 8080

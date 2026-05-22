@@ -1,16 +1,41 @@
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
+# apiVersion: traefik.io/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: copyparty-route
+# spec:
+#   entryPoints:
+#   - websecure
+#   - web
+#   routes:
+#   - kind: Rule
+#     match: Host(`copyparty.alexbissessur.dev`)
+#     services:
+#     - name: copyparty
+#       port: 80
+#   tls:
+#     certResolver: le
+
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: copyparty-route
+  name: gts
+  annotations:
+    cert-manager.io/cluster-issuer: "prod-issuer"
 spec:
-  entryPoints:
-  - websecure
-  - web
-  routes:
-  - kind: Rule
-    match: Host(`copyparty.alexbissessur.dev`)
-    services:
-    - name: copyparty
-      port: 80
+  ingressClassName: traefik
   tls:
-    certResolver: le
+  - hosts:
+    - copyparty.alexbissessur.dev
+    secretName: copyparty-tls
+  rules:
+  - host: copyparty.alexbissessur.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: copyparty
+            port:
+              number: 80

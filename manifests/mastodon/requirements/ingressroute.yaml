@@ -1,16 +1,41 @@
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
+# apiVersion: traefik.io/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: gtsroute
+# spec:
+#   entryPoints:
+#   - websecure
+#   - web
+#   routes:
+#   - kind: Rule
+#     match: Host(`gts.alexbissessur.dev`)
+#     services:
+#     - name: mastodon
+#       port: 8080
+#   tls:
+#     certResolver: le
+
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: gtsroute
+  name: gts
+  annotations:
+    cert-manager.io/cluster-issuer: "prod-issuer"
 spec:
-  entryPoints:
-  - websecure
-  - web
-  routes:
-  - kind: Rule
-    match: Host(`gts.alexbissessur.dev`)
-    services:
-    - name: mastodon
-      port: 8080
+  ingressClassName: traefik
   tls:
-    certResolver: le
+  - hosts:
+    - gts.alexbissessur.dev
+    secretName: gts-tls
+  rules:
+  - host: gts.alexbissessur.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: mastodon
+            port:
+              number: 8080
