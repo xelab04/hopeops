@@ -13,19 +13,44 @@ spec:
 
 ---
 
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
+# apiVersion: traefik.io/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: forgejo-route
+# spec:
+#   entryPoints:
+#   - websecure
+#   - web
+#   routes:
+#   - kind: Rule
+#     match: Host(`git.alexbissessur.dev`)
+#     services:
+#     - name: forgejo-service
+#       port: 80
+#   tls:
+#     certResolver: le
+
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: forgejo-route
+  name: forgejo
+  annotations:
+    cert-manager.io/cluster-issuer: "prod-issuer"
 spec:
-  entryPoints:
-  - websecure
-  - web
-  routes:
-  - kind: Rule
-    match: Host(`git.alexbissessur.dev`)
-    services:
-    - name: forgejo-service
-      port: 80
+  ingressClassName: traefik
   tls:
-    certResolver: le
+  - hosts:
+    - git.alexbissessur.dev
+    secretName: forgejo-tls
+  rules:
+  - host: git.alexbissessur.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: forgejo-service
+            port:
+              number: 80
