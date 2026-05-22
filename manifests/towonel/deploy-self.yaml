@@ -22,12 +22,12 @@ spec:
         env:
           - name: TOWONEL_INVITE_TOKEN
             valueFrom:
-              configMapKeyRef:
+              secretKeyRef:
                 name: towonel-inv-key
                 key: TOWONEL_SELF_TOKEN
           - name: TOWONEL_AGENT_SERVICES
             valueFrom:
-              secretKeyRef:
+              configMapKeyRef:
                 name: towonel-hostnames
                 key: TOWONEL_SELF_SERVICES
 
