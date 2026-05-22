@@ -19,11 +19,15 @@ logs:
   general:
     level: INFO
 
-# providers:
-#   kubernetesIngress:
-#     publishedService:
-#       enabled: true
-#       pathOverride: "traefik-system/traefik"
+providers:
+  kubernetesIngress:
+    allowExternalNameServices: true
+    # publishedService:
+    #   enabled: true
+    #   pathOverride: "traefik-system/traefik"
+
+  kubernetesCRD:
+    allowExternalNameServices: true
 
 metrics:
   prometheus:
