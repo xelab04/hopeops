@@ -36,7 +36,7 @@ kind: Ingress
 metadata:
   name: forgejo
   annotations:
-    cert-manager.io/cluster-issuer: "prod-issuer"
+    cert-manager.io/cluster-issuer: "issuer"
 spec:
   ingressClassName: traefik
   tls:
