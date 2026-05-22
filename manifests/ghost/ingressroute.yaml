@@ -16,32 +16,101 @@
 #               number: 3000
 
 
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
+# apiVersion: traefik.io/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: ghostroute
+# spec:
+#   entryPoints:
+#   - websecure
+#   - web
+#   routes:
+#   - kind: Rule
+#     match: Host(`alexbissessur.dev`) && PathPrefix(`/rss`)
+#     services:
+#     - name: ghost-svc
+#       port: 80
+
+#   - kind: Rule
+#     match: Host(`alexbissessur.dev`) && (PathPrefix(`/.well-known/webfinger`) || PathPrefix(`/.well-known/host-meta`) || PathPrefix(`/.well-known/nodeinfo`))
+#     services:
+#     - name: mastodon
+#       namespace: mastodon
+#       port: 8080
+
+#   - kind: Rule
+#     match: Host(`alexbissessur.dev`)
+#     services:
+#     - name: anubis
+#       port: 3000
+#   tls:
+#     certResolver: le
+
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: ghostroute
+  name: alexroute
+  annotations:
+    cert-manager.io/cluster-issuer: "prod-issuer"
+    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
-  entryPoints:
-  - websecure
-  - web
-  routes:
-  - kind: Rule
-    match: Host(`alexbissessur.dev`) && PathPrefix(`/rss`)
-    services:
-    - name: ghost-svc
-      port: 80
-
-  - kind: Rule
-    match: Host(`alexbissessur.dev`) && (PathPrefix(`/.well-known/webfinger`) || PathPrefix(`/.well-known/host-meta`) || PathPrefix(`/.well-known/nodeinfo`))
-    services:
-    - name: mastodon
-      namespace: mastodon
-      port: 8080
-
-  - kind: Rule
-    match: Host(`alexbissessur.dev`)
-    services:
-    - name: anubis
-      port: 3000
+  ingressClassName: traefik
   tls:
-    certResolver: le
+  - hosts:
+    - alexbissessur.dev
+    secretName: alexbissessur-tls
+  rules:
+  - host: alexbissessur.dev
+    http:
+      paths:
+
+      - path: /rss
+        pathType: Prefix
+        backend:
+          service:
+            name: ghost-svc
+            port:
+              number: 80
+
+      - path: /.well-known/webfinger
+        pathType: Prefix
+        backend:
+          service:
+            name: mastodon
+            port:
+              number: 8080
+      - path: /.well-known/host-meta
+        pathType: Prefix
+        backend:
+          service:
+            name: mastodon
+            port:
+              number: 8080
+      - path: /.well-known/nodeinfo
+        pathType: Prefix
+        backend:
+          service:
+            name: mastodon
+            port:
+              number: 8080
+
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: anubis
+            port:
+              number: 3000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mastodon
+spec:
+  type: ExternalName
+  externalName: mastodon.mastodon.svc.cluster.local
+  ports:
+  - port: 8080

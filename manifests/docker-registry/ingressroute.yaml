@@ -1,16 +1,41 @@
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
+# apiVersion: traefik.io/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: dockerreg-route
+# spec:
+#   entryPoints:
+#   - websecure
+#   - web
+#   routes:
+#   - kind: Rule
+#     match: Host(`registry.alexbissessur.dev`)
+#     services:
+#     - name: docker-reg-svc
+#       port: 5000
+#   tls:
+#     certResolver: le
+
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: dockerreg-route
+  name: gts
+  annotations:
+    cert-manager.io/cluster-issuer: "prod-issuer"
 spec:
-  entryPoints:
-  - websecure
-  - web
-  routes:
-  - kind: Rule
-    match: Host(`registry.alexbissessur.dev`)
-    services:
-    - name: docker-reg-svc
-      port: 5000
+  ingressClassName: traefik
   tls:
-    certResolver: le
+  - hosts:
+    - registry.alexbissessur.dev
+    secretName: registry-tls
+  rules:
+  - host: registry.alexbissessur.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: docker-reg-svc
+            port:
+              number: 5000
