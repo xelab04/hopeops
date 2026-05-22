@@ -29,7 +29,6 @@ spec:
     match: Host(`alexbissessur.dev`) && PathPrefix(`/rss`)
     services:
     - name: ghost-svc
-      namespace: ghost
       port: 80
 
   - kind: Rule
@@ -42,7 +41,7 @@ spec:
   - kind: Rule
     match: Host(`alexbissessur.dev`)
     services:
-    - name: anubis-alex
+    - name: anubis
       port: 3000
   tls:
     certResolver: le
