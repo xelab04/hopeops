@@ -3,19 +3,19 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: anubis-alex
-  name: anubis-alex
+    app: anubis
+  name: anubis
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: anubis-alex
+      app: anubis
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: anubis-alex
+        app: anubis
     spec:
       containers:
       - image: ghcr.io/techarohq/anubis:latest
@@ -37,14 +37,14 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: anubis-alex
-  name: anubis-alex
+    app: anubis
+  name: anubis
 spec:
   ports:
   - port: 3000
     protocol: TCP
     targetPort: 3000
   selector:
-    app: anubis-alex
+    app: anubis
 status:
   loadBalancer: {}
