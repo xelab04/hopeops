@@ -10,7 +10,7 @@ additionalArguments:
   #- "--accesslog.fields.headers.defaultmode=keep"
   - "--providers.kubernetescrd.allowEmptyServices=true"
   - "--providers.kubernetesingress.allowEmptyServices=true"
-  - "--providers.kubernetesingress.ingressendpoint.publishedservice=kube-system/traefik"
+  - "--providers.kubernetesingress.ingressendpoint.publishedservice=traefik-system/traefik"
 
 # dashboard:
 #   enabled: true
@@ -18,6 +18,12 @@ additionalArguments:
 logs:
   general:
     level: INFO
+
+# providers:
+#   kubernetesIngress:
+#     publishedService:
+#       enabled: true
+#       pathOverride: "traefik-system/traefik"
 
 metrics:
   prometheus:
