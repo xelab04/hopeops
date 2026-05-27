@@ -1,16 +1,19 @@
-extraEnv:
-  - name: REGISTRY_URL
-    valueFrom:
-      secretKeyRef:
-        name: registry-ui-secret
-        key: url
-  - name: REGISTRY_AUTH
-    valueFrom:
-      secretKeyRef:
-        name: registry-ui-secret
-        key: auth
-image:
-  tag: "latest"
+secretEnv:
+  name: registry-ui-secret
+
+# extraEnv:
+#   - name: REGISTRY_URL
+#     valueFrom:
+#       secretKeyRef:
+#         name: registry-ui-secret
+#         key: url
+#   - name: REGISTRY_AUTH
+#     valueFrom:
+#       secretKeyRef:
+#         name: registry-ui-secret
+#         key: auth
+# image:
+#   tag: "latest"
 
 # image:
 #   repository: "public-registry.brunobernard.dev/docker-registry-ui"
