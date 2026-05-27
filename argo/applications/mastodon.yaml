@@ -11,6 +11,10 @@ spec:
   syncPolicy:
     automated:
       enabled: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideAppy=true
   sources:
     - repoURL: https://github.com/xelab04/kates.git
       targetRevision: main
@@ -18,12 +22,12 @@ spec:
 
     - repoURL: https://github.com/xelab04/kates.git
       targetRevision: main
-      path: manifests/mastodon/requirements
+      path: manifests/applications/mastodon/requirements
 
     - chart: app-template
       repoURL: https://bjw-s-labs.github.io/helm-charts/
       targetRevision: 3.7.3
       helm:
         valueFiles:
-          - $values/manifests/mastodon/values.yaml
+          - $values/manifests/applications/mastodon/values.yaml
         ignoreMissingValueFiles: true

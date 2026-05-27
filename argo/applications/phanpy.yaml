@@ -9,8 +9,12 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   syncPolicy:
-    automated: {}
-
+    automated:
+      enabled: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideAppy=true
   sources:
     - repoURL: https://github.com/xelab04/kates.git
       targetRevision: main
@@ -18,7 +22,7 @@ spec:
 
     - repoURL: https://github.com/xelab04/kates.git
       targetRevision: main
-      path: manifests/phanpy/requirements
+      path: manifests/applications/phanpy/requirements
 
     - chart: app-template
       repoURL: https://bjw-s-labs.github.io/helm-charts/
@@ -26,5 +30,5 @@ spec:
       helm:
         # releaseName: app-template
         valueFiles:
-          - $values/manifests/phanpy/values.yaml
+          - $values/manifests/applications/phanpy/values.yaml
         ignoreMissingValueFiles: true

@@ -12,5 +12,10 @@ spec:
     path: kubernetes
     repoURL: https://github.com/xelab04/cloudnativemauritius.com.git
     targetRevision: HEAD
-  syncPolicy:
-    automated: {}
+    syncPolicy:
+      automated:
+        enabled: true
+        selfHeal: true
+      syncOptions:
+        - CreateNamespace=true
+        - ServerSideAppy=true

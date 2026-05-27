@@ -11,5 +11,9 @@ spec:
     repoURL: https://github.com/xelab04/ImageShare.git
     targetRevision: HEAD
   syncPolicy:
+    automated:
+      enabled: true
+      selfHeal: true
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
+      - ServerSideAppy=true

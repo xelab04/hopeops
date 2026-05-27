@@ -9,9 +9,13 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: manifests/ghost
+    path: manifests/applications/ghost
     repoURL: https://github.com/xelab04/kates.git
     targetRevision: HEAD
   syncPolicy:
     automated:
       enabled: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideAppy=true

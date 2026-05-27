@@ -9,7 +9,12 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   syncPolicy:
-    automated: {}
+    automated:
+      enabled: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideAppy=true
   sources:
     - repoURL: https://github.com/xelab04/kates.git
       targetRevision: main
@@ -21,5 +26,5 @@ spec:
       helm:
         releaseName: ollama
         valueFiles:
-          - $values/manifests/ollama/values.yaml
+          - $values/manifests/applications/ollama/values.yaml
         ignoreMissingValueFiles: true

@@ -11,6 +11,9 @@ spec:
     repoURL: https://github.com/xelab04/touni-minuit-oclock.git
     targetRevision: HEAD
   syncPolicy:
-    automated: {}
+    automated:
+      enabled: true
+      selfHeal: true
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
+      - ServerSideAppy=true

@@ -11,4 +11,9 @@ spec:
     repoURL: https://github.com/xelab04/meetups.git
     targetRevision: HEAD
   syncPolicy:
-    automated: {}
+    automated:
+      enabled: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideAppy=true

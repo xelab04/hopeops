@@ -9,7 +9,12 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   syncPolicy:
-    automated: {}
+    automated:
+      enabled: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideAppy=true
   sources:
     - repoURL: https://github.com/xelab04/kates.git
       targetRevision: main
@@ -17,9 +22,9 @@ spec:
 
     - chart: docker-registry-ui
       repoURL: https://eznix86.github.io/docker-registry-ui
-      targetRevision: 0.2.0
+      targetRevision: 1.1.0
       helm:
         releaseName: docker-registry-ui
         valueFiles:
-          - $values/manifests/docker-registry-ui/values.yaml
+          - $values/manifests/applications/docker-registry-ui/values.yaml
         ignoreMissingValueFiles: false

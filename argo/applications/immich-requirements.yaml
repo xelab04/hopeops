@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: manifests/immich/requirements
+    path: manifests/applications/immich/requirements
     repoURL: https://github.com/xelab04/kates.git
     targetRevision: HEAD
   syncPolicy:
