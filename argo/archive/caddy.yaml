@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     path: manifests/caddy
-    repoURL: https://github.com/xelab04/kates.git
+    repoURL: https://github.com/xelab04/hopeops.git
     targetRevision: HEAD
   syncPolicy:
     syncOptions:

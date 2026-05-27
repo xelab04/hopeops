@@ -10,7 +10,7 @@ spec:
   project: default
 
   sources:
-    - repoURL: https://github.com/xelab04/kates.git
+    - repoURL: https://github.com/xelab04/hopeops.git
       targetRevision: main
       ref: values
 

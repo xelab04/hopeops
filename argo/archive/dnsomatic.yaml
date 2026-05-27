@@ -13,7 +13,7 @@ spec:
       exclude: secrets.yaml
       jsonnet: {}
     path: manifests/dnsomatic
-    repoURL: https://github.com/xelab04/kates.git
+    repoURL: https://github.com/xelab04/hopeops.git
     targetRevision: HEAD
   syncPolicy:
     automated: {}

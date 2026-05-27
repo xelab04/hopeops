@@ -1,3 +1,5 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
 metadata:
   name: copyparty
   namespace: argocd
@@ -8,7 +10,7 @@ spec:
   project: default
   source:
     path: manifests/copyparty
-    repoURL: https://github.com/xelab04/kates.git
+    repoURL: https://github.com/xelab04/hopeops.git
     targetRevision: HEAD
   syncPolicy:
     automated:

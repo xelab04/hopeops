@@ -16,11 +16,11 @@ spec:
       - CreateNamespace=true
       - ServerSideAppy=true
   sources:
-    - repoURL: https://github.com/xelab04/kates.git
+    - repoURL: https://github.com/xelab04/hopeops.git
       targetRevision: main
       ref: values
 
-    - repoURL: https://github.com/xelab04/kates.git
+    - repoURL: https://github.com/xelab04/hopeops.git
       targetRevision: main
       path: manifests/applications/mastodon/requirements
 
