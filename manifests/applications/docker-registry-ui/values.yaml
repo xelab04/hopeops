@@ -1,4 +1,4 @@
-env:
+extraEnv:
   - name: REGISTRY_URL
     valueFrom:
       secretKeyRef:
@@ -9,8 +9,10 @@ env:
       secretKeyRef:
         name: registry-ui-secret
         key: auth
-
 image:
-  repository: "public-registry.brunobernard.dev/docker-registry-ui"
-  pullPolicy: Always
-  tag: "1.0.0-alpha.1"
+  tag: "latest"
+
+# image:
+#   repository: "public-registry.brunobernard.dev/docker-registry-ui"
+#   pullPolicy: Always
+#   tag: "1.0.0-alpha.1"
