@@ -26,6 +26,11 @@ spec:
         passwordSecret:
           name: gotosocial-db-password
 
+      - name: memtly
+        login: true
+        passwordSecret:
+          name: memtly-db-password
+
       # Application 2: KRaft
       # - name: kraft
       #   login: true

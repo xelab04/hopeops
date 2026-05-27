@@ -27,7 +27,7 @@ spec:
             value: "postgres"
         envFrom:
           - secretRef:
-            name: memtly-secret
+              name: memtly-secret
 
         volumeMounts:
         - mountPath: /app/uploads

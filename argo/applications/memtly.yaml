@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: memtly
+  namespace: argocd
+spec:
+  destination:
+    namespace: memtly
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: manifests/applications/memtly
+    repoURL: https://github.com/xelab04/hopeops.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      enabled: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideAppy=true
