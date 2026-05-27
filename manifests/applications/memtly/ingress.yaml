@@ -20,6 +20,6 @@ spec:
             port:
               number: 5000
         path: /
-        pathType: Exact
+        pathType: Prefix
 status:
   loadBalancer: {}
