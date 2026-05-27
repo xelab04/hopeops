@@ -1,0 +1,22 @@
+# kubectl apply -f https://github.com/envoyproxy/gateway/releases/download/v1.8.0/quickstart.yaml -n default
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: envoy-gateway
+  namespace: argocd
+spec:
+  destination:
+    namespace: envoy-system
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: gateway-helm
+    repoURL: oci://docker.io/envoyproxy/gateway-helm
+    targetRevision: v1.8.0
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+    automated:
+      selfHeal: true
+      enabled: true
