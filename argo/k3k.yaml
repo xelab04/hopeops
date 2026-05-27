@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: k3k
+  namespace: argocd
+spec:
+  destination:
+    namespace: k3k-system
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: k3k
+    repoURL: https://rancher.github.io/k3k
+    targetRevision: 1.1.0
+  syncPolicy:
+    automated:
+      enabled: true
