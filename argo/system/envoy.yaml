@@ -14,9 +14,9 @@ spec:
     repoURL: oci://docker.io/envoyproxy/gateway-helm
     targetRevision: v1.8.0
   syncPolicy:
-    syncOptions:
-    - CreateNamespace=true
-    - ServerSideApply=true
     automated:
-      selfHeal: true
       enabled: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideAppy=true

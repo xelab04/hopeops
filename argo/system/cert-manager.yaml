@@ -17,6 +17,9 @@ spec:
     repoURL: https://charts.jetstack.io
     targetRevision: v1.20
   syncPolicy:
+    automated:
+      enabled: true
+      selfHeal: true
     syncOptions:
-    - CreateNamespace=true
-    automated: {}
+      - CreateNamespace=true
+      - ServerSideAppy=true

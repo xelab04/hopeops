@@ -19,8 +19,12 @@ spec:
       helm:
         releaseName: traefik
         valueFiles:
-          - $values/manifests/traefik/values.yaml
+          - $values/manifests/system/traefik/values.yaml
         ignoreMissingValueFiles: false
   syncPolicy:
+    automated:
+      enabled: true
+      selfHeal: true
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
+      - ServerSideAppy=true

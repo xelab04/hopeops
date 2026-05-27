@@ -7,8 +7,13 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: manifests/docker-registry
+    path: manifests/system/docker-registry
     repoURL: https://github.com/xelab04/kates.git
     targetRevision: HEAD
   syncPolicy:
-    automated: {}
+    automated:
+      enabled: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideAppy=true
