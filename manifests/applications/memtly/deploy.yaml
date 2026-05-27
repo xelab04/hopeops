@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: memtly
+  name: memtly
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: memtly
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: memtly
+    spec:
+      containers:
+      - image: memtly/memtly:latest
+        name: memtly
+        ports:
+        - containerPort: 5000
+        env:
+          - name: TITLE
+            value: "Memtly"
+          - name: DATABASE_TYPE
+            value: "postgres"
+        envFrom:
+          - secretRef:
+            name: memtly-secret
+
+        volumeMounts:
+        - mountPath: /app/uploads
+          name: uploads
+        - mountPath: /app/thumbnails
+          name: thumbnails
+        - mountPath: /app/config
+          name: config
+        - mountPath: /app/custom_resources
+          name: custom-resources
+        resources: {}
+
+      volumes:
+        - name: uploads
+          persistentVolumeClaim:
+            claimName: memtly-uploads
+        - name: thumbnails
+          persistentVolumeClaim:
+            claimName: memtly-thumbnails
+        - name: config
+          persistentVolumeClaim:
+            claimName: memtly-config
+        - name: custom-resources
+          persistentVolumeClaim:
+            claimName: memtly-custom-resources
+status: {}
