@@ -16,7 +16,7 @@ spec:
         app: towonel-kraft
     spec:
       containers:
-      - image: git.erwanleboucher.dev/eleboucher/towonel-agent:latest
+      - image: git.erwanleboucher.dev/eleboucher/towonel-agent:0.0.43
         name: towonel-agent
         resources: {}
         env:
