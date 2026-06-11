@@ -21,3 +21,16 @@ spec:
   owner: memtly
   cluster:
     name: main-postgres
+
+---
+
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: forgejo
+  namespace: cnpg
+spec:
+  name: forgejo
+  owner: forgejo
+  cluster:
+    name: main-postgres
