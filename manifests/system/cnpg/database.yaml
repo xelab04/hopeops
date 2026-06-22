@@ -31,11 +31,15 @@ spec:
         passwordSecret:
           name: memtly-db-password
 
-      # Application 2: KRaft
-      # - name: kraft
-      #   login: true
-      #   passwordSecret:
-      #     name: kraft-db-password
+      - name: forgejo
+        login: true
+        passwordSecret:
+          name: forgejo-db-password
+
+      - name: kraft
+        login: true
+        passwordSecret:
+          name: kraft-db-password
 
   # bootstrap:
   #   initdb:

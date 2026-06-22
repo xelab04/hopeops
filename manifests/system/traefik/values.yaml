@@ -8,9 +8,9 @@ additionalArguments:
   # - "--accesslog.format=json"
   #- "--accesslog.fields.defaultmode=keep"
   #- "--accesslog.fields.headers.defaultmode=keep"
-  - "--providers.kubernetescrd.allowEmptyServices=true"
-  - "--providers.kubernetesingress.allowEmptyServices=true"
-  - "--providers.kubernetesingress.ingressendpoint.publishedservice=traefik-system/traefik"
+  # - "--providers.kubernetescrd.allowEmptyServices=true"
+  # - "--providers.kubernetesingress.allowEmptyServices=true"
+  # - "--providers.kubernetesingress.ingressendpoint.publishedservice=traefik-system/traefik"
 
 # dashboard:
 #   enabled: true
@@ -18,16 +18,6 @@ additionalArguments:
 logs:
   general:
     level: INFO
-
-providers:
-  kubernetesIngress:
-    allowExternalNameServices: true
-    # publishedService:
-    #   enabled: true
-    #   pathOverride: "traefik-system/traefik"
-
-  kubernetesCRD:
-    allowExternalNameServices: true
 
 metrics:
   prometheus:
@@ -80,8 +70,16 @@ persistence:
 providers:
   kubernetesCRD:
     allowCrossNamespace: true
+    allowEmptyServices: true
+    allowExternalNameServices: true
+  kubernetesIngress:
+    allowExternalNameServices: true
+    allowEmptyServices: true
+    publishedService:
+      enabled: true
+      pathOverride: "traefik-system/traefik"
 
-#certificatesResolvers:
+    #certificatesResolvers:
 #  le:
 #    acme:
 #      email: alexbissessur@gmail.com
