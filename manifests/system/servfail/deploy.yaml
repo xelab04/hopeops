@@ -28,7 +28,7 @@ spec:
             memory: 25M
 
         env:
-         - name: TOKENDYN
+         - name: TOKEN
            valueFrom:
             secretKeyRef:
               name: servfail-secret
