@@ -6,6 +6,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "6443:6443"
       - "1337:443"
       - "8443:8443"
     volumes:
@@ -15,10 +16,9 @@ services:
       - towonel-net
 
   towonel:
-    # image: git.erwanleboucher.dev/eleboucher/towonel-node:latest
-    image: registry.alexbissessur.dev/towonel-node
+    image: codeberg.org/towonel/towonel-node:1.0.1
     volumes:
-      - /root/docker/towonel:/var/lib/towonel
+      - /root/docker/towonel:/data
     restart: unless-stopped
     environment:
       - TOWONEL_IDENTITY_KEY_PATH=/data/node.key
@@ -34,15 +34,23 @@ services:
       - TOWONEL_EDGE_ENABLED=true
       - TOWONEL_EDGE_LISTEN_ADDR=0.0.0.0:4443
       - TOWONEL_EDGE_HEALTH_LISTEN_ADDR=0.0.0.0:9092
-      - TOWONEL_EDGE_PUBLIC_ADDRESSES=towonel.alexbissessur:443
+      - TOWONEL_EDGE_PUBLIC_ADDRESSES=towonel.alexbissessur.dev:443
       - TOWONEL_EDGE_PROXY_PROTOCOL=true
       - TOWONEL_EDGE_TLS_CERT_DIR=/data/certs
-      - TOWONEL_EDGE_TLS_ACME_EMAIL=
-      - TOWONEL_EDGE_TLS_HTTP_LISTEN_ADDR=0.0.0.0:8081
+      - TOWONEL_EDGE_TLS_ACME_EMAIL=alexbissessur@gmail.com
+      - TOWONEL_EDGE_HTTP_LISTEN_ADDR=0.0.0.0:8081
+      - TOWONEL_EDGE_IROH_PORT=51820
+      # - TOWONEL_IDENTITY_KEY_PATH=/var/lib/towonel/node.key
+      # - TOWONEL_HUB_OPERATOR_API_KEY_PATH=/var/lib/towonel/operator.key
+      # - TOWONEL_HUB_DB_DSN=/var/lib/towonel/hub.db
+      # - TOWONEL_HUB_PUBLIC_URL=https://towonel.alexbissessur.dev
+      # - TOWONEL_EDGE_PUBLIC_ADDRESSES=towonel.alexbissessur.dev:8443
 
     expose:
       - "4443"
       - "8081"
+    ports:
+      - "51820:51820/udp"
     networks:
       - towonel-net
 

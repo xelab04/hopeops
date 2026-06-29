@@ -16,7 +16,7 @@ spec:
         app: towonel-community
     spec:
       containers:
-      - image: git.erwanleboucher.dev/eleboucher/towonel-agent:0.0.43
+      - image: codeberg.org/towonel/towonel-agent:1.0.1
         name: towonel-agent
         resources: {}
         env:
