@@ -14,12 +14,19 @@
                         }
                 }
                 :80 {
+                        @local_http http host towonel.alexbissessur.dev
+                        route @local_http {
+                            proxy {
+                                proxy_protocol v2
+                                upstream 127.0.0.1:8080
+                            }
+                        }
                         @http http
                         route @http {
-                                proxy {
-                                        proxy_protocol v2
-                                        upstream root-towonel-1:8081
-                                }
+                            proxy {
+                                proxy_protocol v2
+                                upstream root-towonel-1:4480
+                            }
                         }
                 }
                 :6443 {
@@ -52,3 +59,7 @@
         }
 }
 
+towonel.alexbissessur.dev {
+    log
+    reverse_proxy root-towonel-1:8443
+  }

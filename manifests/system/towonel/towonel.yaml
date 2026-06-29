@@ -4,7 +4,7 @@ services:
     container_name: caddy
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "80:8080"
       - "443:443"
       - "6443:6443"
       - "1337:443"
@@ -39,8 +39,9 @@ services:
       - TOWONEL_EDGE_ADVERTISED_ADDRESSES=towonel.alexbissessur.dev:443
       - TOWONEL_EDGE_PROXY_PROTOCOL=true
       - TOWONEL_EDGE_TLS_CERT_DIR=/data/certs
-      - TOWONEL_EDGE_TLS_ACME_EMAIL=alexbissessur@gmail.com
-      - TOWONEL_EDGE_HTTP_LISTEN_ADDR=0.0.0.0:8081
+      # - TOWONEL_EDGE_TLS_ACME_EMAIL=alexbissessur@gmail.com
+      # needed for http-01
+      - TOWONEL_EDGE_HTTP_LISTEN_ADDR=0.0.0.0:4480
       - TOWONEL_EDGE_IROH_PORT=51820
       # - TOWONEL_IDENTITY_KEY_PATH=/var/lib/towonel/node.key
       # - TOWONEL_HUB_OPERATOR_API_KEY_PATH=/var/lib/towonel/operator.key
@@ -50,7 +51,8 @@ services:
 
     expose:
       - "4443"
-      - "8081"
+      - "4480"
+      - "8443"
     ports:
       - "51820:51820/udp"
     networks:
