@@ -73,11 +73,19 @@ providers:
     allowEmptyServices: true
     allowExternalNameServices: true
   kubernetesIngress:
-    allowExternalNameServices: true
-    allowEmptyServices: true
-    publishedService:
-      enabled: true
-      pathOverride: "traefik-system/traefik"
+    enabled: false
+  kubernetesIngressNGINX:
+    enabled: true
+    controllerClass: traefik.io/ingress-controller
+    ingressClass: traefik
+    # allowExternalNameServices: true
+    # allowEmptyServices: true
+    # publishedService:
+    #   enabled: true
+    #   pathOverride: "traefik-system/traefik"
+  kubernetesGateway:
+    enabled: true
+    experimentalChannel: true
 
     #certificatesResolvers:
 #  le:
