@@ -26,6 +26,8 @@ metrics:
     entryPoint: metrics
     addRoutersLabels: true
     addServicesLabels: true
+    service:
+      enabled: true
 
 ports:
   ssh:
