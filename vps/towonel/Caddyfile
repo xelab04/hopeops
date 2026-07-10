@@ -5,6 +5,13 @@
 
         layer4 {
                 :443 {
+                        @local tls sni towonel.alexbissessur.dev matrix
+                        route @local {
+                            proxy {
+                                proxy_protocol v2
+                                upstream 127.0.0.1:8443
+                            }
+                        }
                         @tls tls
                         route @tls {
                                 proxy {
@@ -14,10 +21,10 @@
                         }
                 }
                 :80 {
-                        @local_http http host towonel.alexbissessur.dev
+                        @local_http http host towonel.alexbissessur.dev matrix
                         route @local_http {
                             proxy {
-                                proxy_protocol v2
+
                                 upstream 127.0.0.1:8080
                             }
                         }
@@ -43,7 +50,7 @@
         servers :8443 {
                 listener_wrappers {
                         proxy_protocol {
-                                timeout 2s
+                                timeout 30s
                                 allow 127.0.0.1/32
                         }
                         tls
@@ -52,7 +59,7 @@
         servers :8080 {
                 listener_wrappers {
                         proxy_protocol {
-                                timeout 2s
+                                timeout 30s
                                 allow 127.0.0.1/32
                         }
                 }
@@ -60,6 +67,10 @@
 }
 
 towonel.alexbissessur.dev {
-    log
+    # log
     reverse_proxy root-towonel-1:8443
-  }
+}
+
+matrix {
+    reverse_proxy 102.222.105.35:6167
+}

@@ -4,7 +4,7 @@ services:
     container_name: caddy
     restart: unless-stopped
     ports:
-      - "80:8080"
+      - "80:80"
       - "443:443"
       - "6443:6443"
       - "1337:443"
@@ -31,23 +31,12 @@ services:
       - TOWONEL_HUB_PUBLIC_URL=https://towonel.alexbissessur.dev
       - TOWONEL_HUB_OPERATOR_API_KEY_PATH=/data/operator.key
       - TOWONEL_HUB_URL=http://localhost:8443
-      - TOWONEL_HUB_TLS_ACME_EMAIL=alexbissessur@gmail.com
       - TOWONEL_EDGE_ENABLED=true
       - TOWONEL_EDGE_LISTEN_ADDR=0.0.0.0:4443
       - TOWONEL_EDGE_HEALTH_LISTEN_ADDR=0.0.0.0:9092
-      - TOWONEL_EDGE_PUBLIC_ADDRESSES=towonel.alexbissessur.dev:443
-      - TOWONEL_EDGE_ADVERTISED_ADDRESSES=towonel.alexbissessur.dev:443
       - TOWONEL_EDGE_PROXY_PROTOCOL=true
-      - TOWONEL_EDGE_TLS_CERT_DIR=/data/certs
-      # - TOWONEL_EDGE_TLS_ACME_EMAIL=alexbissessur@gmail.com
-      # needed for http-01
       - TOWONEL_EDGE_HTTP_LISTEN_ADDR=0.0.0.0:4480
       - TOWONEL_EDGE_IROH_PORT=51820
-      # - TOWONEL_IDENTITY_KEY_PATH=/var/lib/towonel/node.key
-      # - TOWONEL_HUB_OPERATOR_API_KEY_PATH=/var/lib/towonel/operator.key
-      # - TOWONEL_HUB_DB_DSN=/var/lib/towonel/hub.db
-      # - TOWONEL_HUB_PUBLIC_URL=https://towonel.alexbissessur.dev
-      # - TOWONEL_EDGE_PUBLIC_ADDRESSES=towonel.alexbissessur.dev:8443
 
     expose:
       - "4443"

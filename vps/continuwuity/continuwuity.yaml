@@ -1,0 +1,13 @@
+services:
+  continuwuity:
+    image: forgejo.ellis.link/continuwuation/continuwuity:latest
+    container_name: continuwuity
+    restart: unless-stopped
+    environment:
+      CONDUWUIT_CONFIG: /config/continuwuity.toml
+    ports:
+      - "6167:6167"
+    volumes:
+      - /root/docker/continuwuity/data:/data
+      - /root/docker/continuwuity/backup:/backups
+      - /root/docker/continuwuity/config:/config:ro
