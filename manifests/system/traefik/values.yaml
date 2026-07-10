@@ -4,13 +4,10 @@ additionalArguments:
   # - "--certificatesresolvers.le.acme.email=alexbissessur@gmail.com"
   # - "--certificatesresolvers.le.acme.storage=/data/acme.json"
   # - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=web"
-  # - "--accesslog=true"
-  # - "--accesslog.format=json"
+  - "--accesslog=true"
+  - "--accesslog.format=json"
   #- "--accesslog.fields.defaultmode=keep"
   #- "--accesslog.fields.headers.defaultmode=keep"
-  # - "--providers.kubernetescrd.allowEmptyServices=true"
-  # - "--providers.kubernetesingress.allowEmptyServices=true"
-  # - "--providers.kubernetesingress.ingressendpoint.publishedservice=traefik-system/traefik"
 
 # dashboard:
 #   enabled: true
@@ -18,6 +15,10 @@ additionalArguments:
 logs:
   general:
     level: INFO
+
+# accesslog:
+#   enabled: true
+#   format: json
 
 metrics:
   prometheus:
@@ -39,6 +40,11 @@ ports:
     protocol: TCP
 
   web:
+    transport:
+      respondingTimeouts:
+        readTimeout: "60s"
+        writeTimeout: "60s"
+        idleTimeout: "180s"
     forwardedHeaders:
       trustedIPs:
         - "10.42.0.0/16"
@@ -49,6 +55,11 @@ ports:
         - "127.0.0.1/32"
         - "192.168.0.0/24"
   websecure:
+    transport:
+      respondingTimeouts:
+        readTimeout: "60s"
+        writeTimeout: "60s"
+        idleTimeout: "180s"
     forwardedHeaders:
       trustedIPs:
         - "10.42.0.0/16"
