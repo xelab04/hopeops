@@ -1,7 +1,12 @@
 [global]
-server_name = ""
+server_name = "{DOMAIN}"
 address = ["0.0.0.0"]
 port = 6167
+
+[global.matrix_rtc]
+foci = [
+    { type = "livekit", livekit_service_url = "https://livekit.{DOMAIN}" },
+]
 
 log = "info"
 

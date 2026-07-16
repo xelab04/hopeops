@@ -11,3 +11,10 @@ services:
       - /root/docker/continuwuity/data:/data
       - /root/docker/continuwuity/backup:/backups
       - /root/docker/continuwuity/config:/config:ro
+    networks:
+      - towonel-net
+
+networks:
+  towonel-net:
+    name: towonel-shared
+    external: true

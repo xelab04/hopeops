@@ -5,7 +5,7 @@
 
         layer4 {
                 :443 {
-                        @local tls sni towonel.alexbissessur.dev matrix
+                        @local tls sni towonel.alexbissessur.dev matrix.{DOMAIN} livekit.{DOMAIN}
                         route @local {
                             proxy {
                                 proxy_protocol v2
@@ -16,12 +16,12 @@
                         route @tls {
                                 proxy {
                                         proxy_protocol v2
-                                        upstream root-towonel-1:4443
+                                        upstream compose-towonel-1:4443
                                 }
                         }
                 }
                 :80 {
-                        @local_http http host towonel.alexbissessur.dev matrix
+                        @local_http http host towonel.alexbissessur.dev matrix.{DOMAIN} livekit.{DOMAIN}
                         route @local_http {
                             proxy {
 
@@ -32,7 +32,7 @@
                         route @http {
                             proxy {
                                 proxy_protocol v2
-                                upstream root-towonel-1:4480
+                                upstream compose-towonel-1:4480
                             }
                         }
                 }
@@ -68,9 +68,19 @@
 
 towonel.alexbissessur.dev {
     # log
-    reverse_proxy root-towonel-1:8443
+    reverse_proxy compose-towonel-1:8443
 }
 
-matrix {
+matrix.{DOMAIN} {
     reverse_proxy 102.222.105.35:6167
+}
+
+livekit.{DOMAIN} {
+
+    @lk-jwt-service path /sfu/get* /healthz* /get_token*
+    route @lk-jwt-service {
+        reverse_proxy 127.0.0.1:8081
+    }
+
+    reverse_proxy 127.0.0.1:7880
 }

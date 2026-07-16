@@ -49,4 +49,5 @@ services:
 
 networks:
   towonel-net:
-    driver: bridge
+    name: towonel-shared
+    external: true
