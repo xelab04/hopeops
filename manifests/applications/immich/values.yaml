@@ -9,6 +9,7 @@ controllers:
     containers:
       main:
         image:
+          repository: ghcr.io/immich-app/immich-server
           tag: v2.7.2
         env:
           REDIS_HOSTNAME: 'immich-redis-master'
