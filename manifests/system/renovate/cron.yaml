@@ -1,0 +1,34 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: renovate
+spec:
+  schedule: '0 0 * * *'
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: renovate
+              image: renovate/renovate:44.0.1
+              env:
+                - name: LOG_LEVEL
+                  value: debug
+              envFrom:
+                - secretRef:
+                    name: renovate-env
+              volumeMounts:
+                - name: config-volume
+                  mountPath: /opt/renovate
+                - name: work-volume
+                  mountPath: /tmp/renovate
+
+          volumes:
+            - name: config-volume
+              configMap:
+                name: renovate-config
+            - name: work-volume
+              emptyDir: {}
+
+          restartPolicy: Never
