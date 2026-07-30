@@ -9,7 +9,7 @@ controllers:
       gts:
         image:
           repository: docker.io/superseriousbusiness/gotosocial
-          tag: "0.21.2"
+          tag: "0.22.0"
         env:
           TZ: Indian/Mauritius
           GTS_HOST: gts.alexbissessur.dev
