@@ -6,6 +6,9 @@ data:
   config.json: |-
     {
       "repositories": ["xelab04/hopeops"]
+      "kubernetes": {
+        "managerFilePatterns": ["/\\.ya?ml$/"]
+      }
     }
 
 #       "dryRun" : "full"
