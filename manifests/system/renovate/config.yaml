@@ -8,6 +8,9 @@ data:
       "repositories": ["xelab04/hopeops"],
       "kubernetes": {
         "managerFilePatterns": ["/\\.ya?ml$/"]
+      },
+      registryAliases: {
+        "mirror.gcr.io": "docker.io",
       }
     }
 
