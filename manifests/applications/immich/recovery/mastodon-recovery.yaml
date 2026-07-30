@@ -26,7 +26,7 @@ spec:
       containers:
       - name: client
         # image: postgres:16
-        image: ghcr.io/cloudnative-pg/postgresql:17.4
+        image: ghcr.io/cloudnative-pg/postgresql:17.10
         command: ["sleep", "infinity"]
         # run this
         # postgres -D /var/lib/postgresql/data/pgdata/ -c listen_addresses='127.0.0.1' -c ssl=off -c log_destination=stderr -c logging_collector=off -c unix_socket_directories=/tmp
