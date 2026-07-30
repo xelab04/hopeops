@@ -10,7 +10,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/immich-app/immich-server
-          tag: v2.7.2
+          tag: v3.1.0
         env:
           REDIS_HOSTNAME: 'immich-redis-master'
           DB_HOSTNAME: "immich-postgres-rw"
