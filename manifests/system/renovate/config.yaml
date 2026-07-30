@@ -1,11 +1,22 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: renovate-config
-data:
-  config.json: |-
-    {
-      "repositories": ["xelab04/hopeops"]
-    }
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: renovate-config
+# data:
+#   config.json: |-
+#     {
+#       "repositories": ["xelab04/hopeops"],
+#       "hostRules": [
+#         {
+#           "matchHost": "index.docker.io",
+#           "timeout": 30000
+#         },
+#         {
+#           "matchHost": "docker.io",
+#           "username": "username",
+#           "password": "password"
+#         }
+#       ]
+#     }
 
-#       "dryRun" : "full"
+# #       "dryRun" : "full"
