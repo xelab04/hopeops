@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: manifests/copyparty
+    path: manifests/applications/copyparty
     repoURL: https://github.com/xelab04/hopeops.git
     targetRevision: HEAD
   syncPolicy:

@@ -1,21 +1,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: tor-entrypoint
+  name: app-of-apps
   namespace: argocd
 spec:
   destination:
-    namespace: tor-endpoint
+    namespace: argocd
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: kubernetes/
-    repoURL: https://github.com/xelab04/tor-entrypoint.git
+    path: argo/system/
+    repoURL: https://github.com/xelab04/hopeops.git
     targetRevision: HEAD
   syncPolicy:
     automated:
       enabled: true
       selfHeal: true
+      # prune: true
     syncOptions:
       - CreateNamespace=true
       - ServerSideAppy=true
