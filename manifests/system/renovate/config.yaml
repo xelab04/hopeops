@@ -5,7 +5,7 @@ metadata:
 data:
   config.json: |-
     {
-      "repositories": ["xelab04/hopeops"]
+      "repositories": ["xelab04/hopeops"],
       "kubernetes": {
         "managerFilePatterns": ["/\\.ya?ml$/"]
       }
