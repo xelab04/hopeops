@@ -8,7 +8,7 @@ controllers:
     containers:
       gts:
         image:
-          repository: docker.io/superseriousbusiness/gotosocial
+          repository: mirror.gcr.io/superseriousbusiness/gotosocial
           tag: "0.22.0"
         env:
           TZ: Indian/Mauritius

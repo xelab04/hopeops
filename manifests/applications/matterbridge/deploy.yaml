@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: matterbridge
-          image: docker.io/alexb04/matterbridge:1.26.2
+          image: mirror.gcr.io/alexb04/matterbridge:1.26.2
           imagePullPolicy: Always
           args: ["-conf", "/config/matterbridge.toml"]
           volumeMounts:
