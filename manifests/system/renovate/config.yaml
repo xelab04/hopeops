@@ -6,19 +6,5 @@ data:
   config.json: |-
     {
       "repositories": ["xelab04/hopeops"],
-      "kubernetes": {
-        "managerFilePatterns": ["/\\.ya?ml$/"]
-      },
-      "packageRules": [
-        {
-          "matchDatasources": ["docker"],
-          "matchPackageNames": ["!ghcr.io/**", "!registry.alexbissessur.dev/**"],
-          "registryUrls": ["https://mirror.gcr.io"]
-        }
-      ]
     }
 
-#       "dryRun" : "full"
-# registryAliases: {
-      #   "mirror.gcr.io": "docker.io",
-      # },

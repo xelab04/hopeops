@@ -1,3 +1,24 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json"
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "docker:enableMajor",
+    ":dependencyDashboard",
+    ":timezone(Indian/Mauritius)"
+  ],
+  "dependencyDashboard": true,
+  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
+  "minimumReleaseAge": "2 days",
+  "ignorePaths": ["inventory", "playbooks", "scripts"],
+
+  "kubernetes": {
+    "managerFilePatterns": ["/\\.ya?ml$/"]
+  },
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["!ghcr.io/**", "!registry.alexbissessur.dev/**"],
+      "registryUrls": ["https://mirror.gcr.io"]
+    }
+  ]
 }
