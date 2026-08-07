@@ -4,11 +4,15 @@
     "config:recommended",
     "docker:enableMajor",
     ":dependencyDashboard",
-    ":timezone(Indian/Mauritius)"
+    ":timezone(Indian/Mauritius)",
+    ":automergeBranch",
+    ":disableRateLimiting"
   ],
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "ignorePaths": ["inventory", "playbooks", "scripts"],
+  "minimumReleaseAge": "2 days",
+  "minimumReleaseAgeBehaviour": "timestamp-optional",
 
   "kubernetes": {
     "managerFilePatterns": ["/\\.ya?ml$/"]
