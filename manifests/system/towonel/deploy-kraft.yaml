@@ -16,7 +16,7 @@ spec:
         app: towonel-kraft
     spec:
       containers:
-      - image: codeberg.org/towonel/towonel-agent:1.5.1
+      - image: codeberg.org/towonel/towonel-agent:1.5.2
         name: towonel-agent
         resources: {}
         env:
