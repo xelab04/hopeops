@@ -8,7 +8,6 @@
   ],
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
-  "minimumReleaseAge": "2 days",
   "ignorePaths": ["inventory", "playbooks", "scripts"],
 
   "kubernetes": {
