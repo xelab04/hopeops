@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: ghost
-          image: mirror.gcr.io/ghost:6.0.0
+          image: mirror.gcr.io/ghost:6.3.0
           ports:
             - containerPort: 2368
           volumeMounts:
