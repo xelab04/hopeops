@@ -45,7 +45,7 @@ persistence:
 
 gitea:
   additionalConfigFromEnvs:
-    - name: FORGEJO__DATABASE_PASSWD
+    - name: FORGEJO__DATABASE__PASSWD
       valueFrom:
         secretKeyRef:
           name: postgres-secret
