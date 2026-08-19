@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: towonel-community
+  name: towonel-community
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: towonel-community
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: towonel-community
+    spec:
+      containers:
+      - image: codeberg.org/towonel/towonel-agent:1.5.1
+        name: towonel-agent
+        resources: {}
+        env:
+          - name: TOWONEL_INVITE_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: towonel-inv-key
+                key: TOWONEL_TOKEN
+          - name: TOWONEL_AGENT_SERVICES
+            valueFrom:
+              configMapKeyRef:
+                name: towonel-hostnames
+                key: TOWONEL_COMMUNITY_SERVICES
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: towonel-hostnames
+data:
+  TOWONEL_SELF_SERVICES: |
+      [
+        {"hostname":"git.kraftcloud.dev","origin":"forgejo-ssh.kraft-forgejo.svc.cluster.local:22"},
+      ]
+
+---
+
+# apiVersion: v1
+# data:
+#   TOWONEL_TOKEN:
+# kind: Secret
+# metadata:
+#   name: towonel-inv-key
