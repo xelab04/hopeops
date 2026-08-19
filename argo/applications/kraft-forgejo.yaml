@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kraft-forgejo
+  namespace: argocd
+spec:
+  destination:
+    namespace: kraft-forgejo
+    server: https://kubernetes.default.svc
+  project: default
+  syncPolicy:
+    automated:
+      enabled: true
+  sources:
+    - repoURL: https://github.com/xelab04/hopeops.git
+      targetRevision: main
+      ref: values
+
+    - chart: forgejo
+      repoURL: oci://code.forgejo.org/forgejo-helm/forgejo
+      targetRevision: 17.1.4
+      helm:
+        releaseName: forgejo
+        valueFiles:
+          - $values/manifests/applications/kraft-forgejo/values.yaml
+        ignoreMissingValueFiles: true
