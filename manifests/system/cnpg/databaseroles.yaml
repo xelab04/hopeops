@@ -1,0 +1,56 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: forgejo-role
+spec:
+  cluster:
+    name: main-postgres
+  name: forgejo
+  login: true
+  passwordSecret:
+    name: forgejo-db-password
+
+---
+
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: gotosocial-role
+spec:
+  cluster:
+    name: main-postgres
+  name: gotosocial
+  login: true
+  passwordSecret:
+    name: gotosocial-db-password
+
+---
+
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: memtly-role
+spec:
+  cluster:
+    name: main-postgres
+  name: memtly
+  login: true
+  passwordSecret:
+    name: memtly-db-password
+
+---
+
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: kraft-role
+spec:
+  cluster:
+    name: main-postgres
+  name: kraft
+  login: true
+  passwordSecret:
+    name: kraft-db-password
+
+---
+

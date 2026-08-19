@@ -4,7 +4,7 @@ metadata:
   name: main-postgres
   namespace: cnpg
 spec:
-  instances: 3
+  instances: 1
   storage:
     size: 15Gi
 
@@ -18,29 +18,28 @@ spec:
     parameters:
       max_slot_wal_keep_size: "5GB"
 
-  managed:
-    roles:
-      # Application 1: GoToSocial
-      - name: gotosocial
-        login: true
-        passwordSecret:
-          name: gotosocial-db-password
-
-      - name: memtly
-        login: true
-        passwordSecret:
-          name: memtly-db-password
-
-      - name: forgejo
-        login: true
-        passwordSecret:
-          name: forgejo-db-password
-
-      - name: kraft
-        login: true
-        passwordSecret:
-          name: kraft-db-password
-
+  # managed:
+  #   roles:
+  #     - name: gotosocial
+  #       login: true
+  #       passwordSecret:
+  #         name: gotosocial-db-password
+  #
+  #     - name: memtly
+  #       login: true
+  #       passwordSecret:
+  #         name: memtly-db-password
+  #
+  #     - name: forgejo
+  #       login: true
+  #       passwordSecret:
+  #         name: forgejo-db-password
+  #
+  #     - name: kraft
+  #       login: true
+  #       passwordSecret:
+  #         name: kraft-db-password
+  #
   # bootstrap:
   #   initdb:
   #     database: default
