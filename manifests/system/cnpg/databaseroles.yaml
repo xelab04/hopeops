@@ -15,6 +15,20 @@ spec:
 apiVersion: postgresql.cnpg.io/v1
 kind: DatabaseRole
 metadata:
+  name: forgejo-kraft-role
+spec:
+  cluster:
+    name: main-postgres
+  name: forgejo-kraft
+  login: true
+  passwordSecret:
+    name: forgejo-db-password
+
+---
+
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
   name: gotosocial-role
 spec:
   cluster:

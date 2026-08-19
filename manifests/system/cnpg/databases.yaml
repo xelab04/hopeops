@@ -34,3 +34,16 @@ spec:
   owner: forgejo
   cluster:
     name: main-postgres
+
+---
+
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: forgejo-kraft
+  namespace: cnpg
+spec:
+  name: forgejo-kraft
+  owner: forgejo-kraft
+  cluster:
+    name: main-postgres

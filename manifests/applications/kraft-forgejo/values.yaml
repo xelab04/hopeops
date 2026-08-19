@@ -71,8 +71,8 @@ gitea:
     database:
       DB_TYPE: postgres
       HOST: main-postgres-rw.cnpg.svc.cluster.local
-      NAME: forgejo
-      USER: forgejo
+      NAME: forgejo-kraft
+      USER: forgejo-kraft
 
     indexer:
       ISSUE_INDEXER_PATH: /data/gitea/indexers/issues.bleve
