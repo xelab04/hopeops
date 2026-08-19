@@ -44,12 +44,17 @@ persistence:
     helm.sh/resource-policy: keep
 
 gitea:
+  additionalConfigFromEnvs:
+    - name: FORGEJO__DATABASE_PASSWD
+      valueFrom:
+        secretKeyRef:
+          name: postgres-secret
+          key: password
+
   config:
     APP_NAME: Forgejo
     RUN_MODE: prod
     APP_SLOGAN: For Digital Sovereignty <3
-    RUN_USER: git
-    WORK_PATH: /data/gitea
 
     server:
       APP_DATA_PATH: /data/gitea
@@ -68,13 +73,6 @@ gitea:
       HOST: main-postgres-rw.cnpg.svc.cluster.local
       NAME: forgejo
       USER: forgejo
-
-    additionalConfigFromEnvs:
-      - name: FORGEJO__DATABASE_PASSWD
-        valueFrom:
-          secretKeyRef:
-            name: postgres-secret
-            key: password
 
     indexer:
       ISSUE_INDEXER_PATH: /data/gitea/indexers/issues.bleve
