@@ -1,3 +1,25 @@
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: forgejo
+#   namespace: argocd
+# spec:
+#   destination:
+#     namespace: forgejo
+#     server: https://kubernetes.default.svc
+#   project: default
+#   source:
+#     path: manifests/applications/forgejo
+#     repoURL: https://github.com/xelab04/hopeops.git
+#     targetRevision: HEAD
+#   syncPolicy:
+#     automated:
+#       enabled: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+#       - ServerSideAppy=true
+
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -8,14 +30,19 @@ spec:
     namespace: forgejo
     server: https://kubernetes.default.svc
   project: default
-  source:
-    path: manifests/applications/forgejo
-    repoURL: https://github.com/xelab04/hopeops.git
-    targetRevision: HEAD
   syncPolicy:
     automated:
       enabled: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - ServerSideAppy=true
+  sources:
+    - repoURL: https://github.com/xelab04/hopeops.git
+      targetRevision: main
+      ref: values
+
+    - chart: forgejo
+      repoURL: oci://code.forgejo.org/forgejo-helm/forgejo
+      targetRevision: 17.1.4
+      helm:
+        releaseName: forgejo
+        valueFiles:
+          - $values/manifests/applications/forgejo/values.yaml
+        ignoreMissingValueFiles: true
