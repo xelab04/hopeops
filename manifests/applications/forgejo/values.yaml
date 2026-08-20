@@ -125,6 +125,7 @@ gitea:
 
     repository:
       ROOT: '/data/git/repositories'
+      ENABLE_PUSH_CREATE_USER: true
     repository.upload:
       TEMP_PATH: '/data/gitea/uploads'
     repository.pull-request:
