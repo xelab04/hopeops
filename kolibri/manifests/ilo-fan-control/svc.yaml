@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ilo-fan-control
+  name: ilo-fan-control
+spec:
+  ports:
+  - port: 8000
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: ilo-fan-control
+status:
+  loadBalancer: {}

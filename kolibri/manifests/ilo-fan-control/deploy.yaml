@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ilo-fan-control
+  name: ilo-fan-control
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ilo-fan-control
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: ilo-fan-control
+    spec:
+      containers:
+      - image: ghcr.io/xelab04/ilo-fan-control:latest
+        name: ilo-fan-control
+        ports:
+        - containerPort: 8000
+        resources: {}
+status: {}
