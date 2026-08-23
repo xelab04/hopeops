@@ -46,6 +46,7 @@ spec:
         persistentVolumeClaim:
           claimName: stump-cfg
       - name: stump-media
-        persistentVolumeClaim:
-          claimName: stump-media
+        nfs:
+          path: /stump
+          server: nfs-server.nfs-server.svc.cluster.local
 status: {}
