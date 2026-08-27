@@ -26,6 +26,8 @@ spec:
         env:
         - name: STUMP_ENABLE_UPLOAD
           value: "true"
+        - name: STUMP_VERBOSITY
+          value: "1"
         - name: STUMP_CONFIG_DIR
           value: "/config"
         - name: STUMP_PORT
