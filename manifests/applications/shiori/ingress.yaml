@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: shiori
+  annotations:
+    cert-manager.io/cluster-issuer: "prod-issuer"
+spec:
+  ingressClassName: traefik
+  tls:
+  - hosts:
+    - shiori.alexbissessur.dev
+    secretName: shiori-tls
+  rules:
+  - host: shiori.alexbissessur.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: shiori
+            port:
+              number: 8080

@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: shiori
+  namespace: argocd
+spec:
+  destination:
+    namespace: shiori
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: manifests/applications/shiori
+    repoURL: https://github.com/xelab04/hopeops.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      enabled: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
