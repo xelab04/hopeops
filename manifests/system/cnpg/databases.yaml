@@ -47,3 +47,16 @@ spec:
   owner: forgejo-kraft
   cluster:
     name: main-postgres
+
+---
+
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: shiori
+  namespace: cnpg
+spec:
+  name: shiori
+  owner: shiori
+  cluster:
+    name: main-postgres

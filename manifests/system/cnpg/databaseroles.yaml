@@ -68,3 +68,16 @@ spec:
 
 ---
 
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: shiori-role
+spec:
+  cluster:
+    name: main-postgres
+  name: shiori
+  login: true
+  passwordSecret:
+    name: shiori-db-password
+
+---
