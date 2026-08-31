@@ -19,7 +19,8 @@ spec:
         app: stump
     spec:
       containers:
-      - image: aaronleopold/stump:latest
+      - image: aaronleopold/stump:nightly
+        imagePullPolicy: Always
         name: stump
         ports:
         - containerPort: 10801
