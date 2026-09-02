@@ -16,7 +16,7 @@ services:
       - towonel-net
 
   towonel:
-    image: codeberg.org/towonel/towonel-node:1.0.1
+    image: codeberg.org/towonel/towonel-node:1.5.1
     volumes:
       - /root/docker/towonel:/data
     restart: unless-stopped
@@ -49,5 +49,5 @@ services:
 
 networks:
   towonel-net:
-    name: towonel-shared
     external: true
+    name: towonel-shared

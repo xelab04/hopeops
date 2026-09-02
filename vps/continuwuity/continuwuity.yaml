@@ -1,6 +1,7 @@
 services:
   continuwuity:
-    image: forgejo.ellis.link/continuwuation/continuwuity:latest
+    image: forgejo.ellis.link/continuwuation/continuwuity:main-maxperf
+    # image: forgejo.ellis.link/continuwuation/continuwuity:latest
     container_name: continuwuity
     restart: unless-stopped
     environment:
