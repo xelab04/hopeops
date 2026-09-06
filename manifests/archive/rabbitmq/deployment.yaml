@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: rabbitmq
-          image: rabbitmq:4.1-rc-management-alpine
+          image: rabbitmq:4.3-rc-management-alpine
           ports:
             - containerPort: 5672 # AMQP protocol port
             - containerPort: 1883 # MQTT
