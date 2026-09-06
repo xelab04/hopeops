@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: mysql:9.4.0
+          image: mysql:9.7.2
           volumeMounts:
             - name: mysql-data
               mountPath: /var/lib/mysql
