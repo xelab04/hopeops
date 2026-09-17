@@ -40,7 +40,7 @@ spec:
 
     - chart: forgejo
       repoURL: oci://code.forgejo.org/forgejo-helm/forgejo
-      targetRevision: 17.1.4
+      targetRevision: 17.1.6
       helm:
         releaseName: forgejo
         valueFiles:
