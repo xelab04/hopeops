@@ -60,3 +60,18 @@ spec:
   owner: shiori
   cluster:
     name: main-postgres
+
+---
+
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: alexbissessur
+  namespace: cnpg
+spec:
+  name: alexbissessur
+  owner: alexbissessur
+  cluster:
+    name: main-postgres
+
+---

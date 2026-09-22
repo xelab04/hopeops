@@ -81,3 +81,17 @@ spec:
     name: shiori-db-password
 
 ---
+
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: alexbissessur-role
+spec:
+  cluster:
+    name: main-postgres
+  name: alexbissessur
+  login: true
+  passwordSecret:
+    name: alexbissessur-db-password
+
+---
