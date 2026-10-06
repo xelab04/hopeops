@@ -21,9 +21,9 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: ghost-svc
+            name: alexbissessur
             port:
-              number: 80
+              number: 8000
 
       # mastodon stuff
       - path: /.well-known/webfinger
