@@ -27,6 +27,10 @@ spec:
             value: 'warn'
           - name: IMAGE_PATH
             value: '/data/images'
+          - name: SITE_TITLE
+            value: "Alex's Corner of The Internet"
+          - name: SITE_URL
+            value: "alexbissessur.dev"
         envFrom:
           - secretRef:
               name: cot-env
