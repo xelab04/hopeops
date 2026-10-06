@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: alexbissessur
+  name: alexbissessur
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alexbissessur
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: alexbissessur
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+      - image: registry.alexbissessur.dev/alexbissessur:latest
+        name: alexbissessur
+        ports:
+        - containerPort: 8000
+        env:
+          - name: RUST_LOG
+            value: 'warn'
+          - name: IMAGE_PATH
+            value: '/data/images'
+        envFrom:
+          - secretRef:
+              name: cot-env
+
+        volumeMounts:
+          # image directory
+          - mountPath: "/data/images"
+            name: images-vol
+
+        resources:
+          requests:
+            cpu: 10m
+            memory: 30M
+          limits:
+            cpu: 200m
+            memory: 50M
+
+      volumes:
+        - name: images-vol
+          persistentVolumeClaim:
+            claimName: alexb-data
+status: {}

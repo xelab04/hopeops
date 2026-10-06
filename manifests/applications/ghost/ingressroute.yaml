@@ -58,10 +58,10 @@ spec:
   ingressClassName: traefik
   tls:
   - hosts:
-    - alexbissessur.dev
-    secretName: alexbissessur-tls
+    - old.alexbissessur.dev
+    secretName: old-alexbissessur-tls
   rules:
-  - host: alexbissessur.dev
+  - host: old.alexbissessur.dev
     http:
       paths:
 
@@ -73,27 +73,27 @@ spec:
             port:
               number: 80
 
-      - path: /.well-known/webfinger
-        pathType: Prefix
-        backend:
-          service:
-            name: mastodon
-            port:
-              number: 8080
-      - path: /.well-known/host-meta
-        pathType: Prefix
-        backend:
-          service:
-            name: mastodon
-            port:
-              number: 8080
-      - path: /.well-known/nodeinfo
-        pathType: Prefix
-        backend:
-          service:
-            name: mastodon
-            port:
-              number: 8080
+      # - path: /.well-known/webfinger
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: mastodon
+      #       port:
+      #         number: 8080
+      # - path: /.well-known/host-meta
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: mastodon
+      #       port:
+      #         number: 8080
+      # - path: /.well-known/nodeinfo
+      #   pathType: Prefix
+      #   backend:
+      #     service:
+      #       name: mastodon
+      #       port:
+      #         number: 8080
 
       - path: /
         pathType: Prefix
