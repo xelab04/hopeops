@@ -31,6 +31,8 @@ spec:
             value: "Alex's Corner of The Internet"
           - name: SITE_URL
             value: "alexbissessur.dev"
+          - name: SITE_ICON
+            value: "https://avatars.githubusercontent.com/u/61658620"
         envFrom:
           - secretRef:
               name: cot-env
