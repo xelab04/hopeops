@@ -45,10 +45,10 @@ spec:
         resources:
           requests:
             cpu: 10m
-            memory: 30M
+            memory: 50M
           limits:
             cpu: 200m
-            memory: 50M
+            memory: 100M
 
       volumes:
         - name: images-vol
