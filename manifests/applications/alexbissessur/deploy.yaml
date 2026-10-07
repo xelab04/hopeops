@@ -24,7 +24,7 @@ spec:
         - containerPort: 8000
         env:
           - name: RUST_LOG
-            value: 'warn'
+            value: 'debug'
           - name: IMAGE_PATH
             value: '/data/images'
           - name: SITE_TITLE
