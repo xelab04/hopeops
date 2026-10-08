@@ -56,7 +56,7 @@ valkey:
         main:
           image:
             repository: mirror.gcr.io/valkey/valkey
-            tag: 9.0-alpine@sha256:0cb61366757e2bcd26500b4e8bb63cbd7117610e3e4f05aacb3c812511da7632
+            tag: 9.0-alpine@sha256:187679e3bd4036959631e3f03983ab2ba503ab21e6fd0454d508e909db2ee989
             pullPolicy: IfNotPresent
   persistence:
     data:
