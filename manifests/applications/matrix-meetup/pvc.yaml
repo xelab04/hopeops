@@ -1,13 +1,23 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
-
 metadata:
-  name: conduit-database-pvc
-
+  name: matrix-continuwuity-db-pvc
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: longhorn
   resources:
     requests:
-      storage: 10Gi
+      storage: '5368709120'
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: matrix-continuwuity-backup-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

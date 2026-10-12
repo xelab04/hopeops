@@ -1,52 +1,52 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
+  name: matrix-continuwuity
   labels:
-    app: matrix-conduit
-  name: matrix-conduit
+    app: matrix-continuwuity
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
-      app: matrix-conduit
-  strategy: {}
+      app: matrix-continuwuity
   template:
     metadata:
       labels:
-        app: matrix-conduit
-
+        app: matrix-continuwuity
     spec:
       containers:
-      - image: registry.gitlab.com/famedly/conduit/matrix-conduit:v0.10.9
-        name: matrix-conduit
-
-        env:
-        - name: CONDUIT_CONFIG
-          value: "/etc/config/conduit.toml"
-        envFrom:
-          - secretRef:
-              name: matrix-secrets
-
+      - name: matrix-continuwuity
+        image: forgejo.ellis.link/continuwuation/continuwuity:latest
         ports:
         - containerPort: 6167
 
+        resources:
+          requests:
+            cpu: 10m
+            memory: 300M
+
+        env:
+        - name: CONDUWUIT_CONFIG
+          value: "/config/continuwuity.toml"
+
         volumeMounts:
-        - name: conduit-config
-          mountPath: /etc/config
-        - name: conduit-database
-          mountPath: /var/lib/matrix-conduit
+        - name: db-storage
+          mountPath: /data
+        - name: db-backup
+          mountPath: /backups
+        - name: continuwuity-config
+          readOnly: true
+          mountPath: /config
 
       volumes:
-      - name: conduit-config
-        configMap:
-          name: conduit-config
-          items:
-          - key: conduit.toml
-            path: conduit.toml
-
-      - name: conduit-database
+      - name: db-storage
         persistentVolumeClaim:
-          claimName: conduit-database-pvc
-
-        # resources: {}
+          claimName: matrix-continuwuity-db-pvc
+      - name: db-backup
+        persistentVolumeClaim:
+          claimName: matrix-continuwuity-backup-pvc
+      - name: continuwuity-config
+        configMap:
+          name: matrix-continuwuity

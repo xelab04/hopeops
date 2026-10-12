@@ -1,17 +1,49 @@
 apiVersion: v1
+data:
+  continuwuity.toml: |
+    [global]
+    server_name = "meetup.mu"
+    address = ["0.0.0.0"]
+    port = 6167
+
+    log = "info"
+
+    # DB settings
+    database_path = "/data"
+    database_backup_path = "/backups"
+    database_backups_to_keep = 2
+
+    rocksdb_compression_algo = "zstd"
+    rocksdb_compression_level = 32767
+    rocksdb_bottommost_compression_level = 32767
+    rocksdb_bottommost_compression = true
+
+    max_request_size = 20971520
+
+    # DNS Optimisation
+    dns_cache_entries = 1_000_000
+    dns_timeout = 60
+    query_over_tcp_only = true
+    ip_lookup_strategy = 1
+
+    # User settings
+    allow_encryption = true
+    allow_federation = true
+    allow_registration = true
+    new_user_displayname_suffix = ""
+    suspend_on_register = false
+
+    # Harden
+    allow_legacy_media = true
+    allow_public_room_directory_over_federation = false
+    lockdown_public_room_directory = true
+    require_auth_for_profile_requests = true
+    trusted_servers = ["bi-vibes.com", "codestorm.net"]
+
+    [global.well_known]
+    client = "https://matrix.meetup.mu"
+    server = "matrix.meetup.mu:443"
+
 kind: ConfigMap
 metadata:
-  name: conduit-config
-data:
-  SERVER_NAME: "matrix.meetup.mu"
-  conduit.toml: |
-    [global]
-    server_name = "matrix.meetup.mu"
-    database_backend = "rocksdb"
-    database_path = "/var/lib/matrix-conduit/"
-    address = "0.0.0.0"
-    port = 6167
-    # Registration settings
-    allow_registration = true
-    allow_federation = true
-    allow_check_for_updates = false
+  name: matrix-continuwuity
