@@ -1,6 +1,19 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
+  name: mautrix-telegram
+  namespace: cnpg
+spec:
+  name: mautrix-telegram
+  owner: mautrix-telegram
+  cluster:
+    name: main-postgres
+
+---
+
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
   name: gotosocial
   namespace: cnpg
 spec:

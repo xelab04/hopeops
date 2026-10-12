@@ -1,6 +1,20 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: DatabaseRole
 metadata:
+  name: mautrix-telegram-role
+spec:
+  cluster:
+    name: main-postgres
+  name: mautrix-telegram
+  login: true
+  passwordSecret:
+    name: mautrix-telegram-password
+
+---
+
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
   name: forgejo-role
 spec:
   cluster:
