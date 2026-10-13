@@ -1,0 +1,36 @@
+# Like friend's kubernetes/apps/network/stunner/config/gateway.yaml,
+# adapted: VPS public IP 102.222.105.35, same ports (15349/TCP TURN-TLS,
+# 13478/UDP) so towonel forwarding matches.
+# The operator creates a ClusterIP dataplane Service named `stunner`;
+# towonel forwards to stunner.stunner.svc.cluster.local (see
+# manifests/system/towonel/config.yaml).
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: stunner
+  annotations:
+    stunner.l7mp.io/enable-mixed-protocol-lb: "true"
+    stunner.l7mp.io/service-type: ClusterIP
+spec:
+  gatewayClassName: stunner
+  addresses:
+  - type: IPAddress
+    value: "102.222.105.35"
+  listeners:
+  - name: udp
+    port: 13478
+    protocol: TURN-UDP
+    allowedRoutes:
+      namespaces:
+        from: All
+  - name: tls
+    port: 15349
+    protocol: TURN-TLS
+    allowedRoutes:
+      namespaces:
+        from: All
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: stunner-tls

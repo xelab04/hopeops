@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lk-jwt-service
+  labels:
+    app: lk-jwt-service
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: lk-jwt-service
+  template:
+    metadata:
+      labels:
+        app: lk-jwt-service
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: lk-jwt-service
+        # renovate: datasource=docker depName=ghcr.io/element-hq/lk-jwt-service
+        image: ghcr.io/element-hq/lk-jwt-service:0.5.0
+        ports:
+        - containerPort: 8081
+        env:
+        - name: LIVEKIT_JWT_BIND
+          value: ":8081"
+        - name: LIVEKIT_URL
+          value: wss://livekit.nyanyamachine.dev
+        # Must match the VPS homeserver server_name (base domain).
+        - name: LIVEKIT_FULL_ACCESS_HOMESERVERS
+          value: nyanyamachine.dev
+        - name: LIVEKIT_KEY
+          valueFrom:
+            secretKeyRef:
+              name: lk-jwt-service
+              key: LIVEKIT_KEY
+        - name: LIVEKIT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: lk-jwt-service
+              key: LIVEKIT_SECRET
+        resources:
+          requests:
+            cpu: 10m
+            memory: 32Mi
+          limits:
+            memory: 128Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL

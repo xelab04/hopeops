@@ -1,0 +1,17 @@
+# Attaches LiveKit media to the STUNner gateway, like friend's
+# kubernetes/apps/social/matrix/livekit/udproute.yaml.
+# NOTE: the STUNner gateway-operator CRDs (stunner.l7mp.io/v1 UDPRoute +
+# gateway.networking.k8s.io/v1 Gateway) must exist in the cluster first.
+# STUNner ignores the Service port and forwards any protocol-port to the
+# backend pods, so a single backendRef is enough.
+apiVersion: stunner.l7mp.io/v1
+kind: UDPRoute
+metadata:
+  name: livekit
+spec:
+  parentRefs:
+  - name: stunner
+    namespace: stunner
+  rules:
+  - backendRefs:
+    - name: livekit

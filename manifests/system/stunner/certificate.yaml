@@ -1,0 +1,25 @@
+# TURN-TLS cert for turn.nyanyamachine.dev. Friend uses ClusterIssuer
+# letsencrypt-production; here we use the local prod-issuer (see
+# manifests/system/cert-manager/prod.yaml + continuwuity ingressroute.yaml).
+# *.nyanyamachine.dev already resolves to 102.222.105.35, so no DNS change.
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: stunner
+spec:
+  dnsNames:
+  - turn.nyanyamachine.dev
+  duration: 2160h
+  renewBefore: 360h
+  issuerRef:
+    kind: ClusterIssuer
+    name: prod-issuer
+  privateKey:
+    algorithm: ECDSA
+    rotationPolicy: Always
+    size: 256
+  secretName: stunner-tls
+  usages:
+  - digital signature
+  - key encipherment
+  - server auth
