@@ -16,6 +16,8 @@ spec:
       labels:
         app: livekit
     spec:
+      # k8s injects a the svc_port env var, which clashes
+      enableServiceLinks: false
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000

@@ -11,9 +11,7 @@ data:
         {"hostname":"*.nyanyamachine.dev","origin":"traefik.traefik-system.svc.cluster.local:443"}
       ]
   # Raw TURN ports forwarded from the VPS edge (102.222.105.35) to the
-  # STUNner dataplane ClusterIP Service, like friend's tcpServices/
-  # udpServices (stunner-turns-tls 15349/TCP, stunner-turn-udp 13478/UDP).
-  # The STUNner gateway-operator must create svc `stunner` in ns `stunner` first.
+  # STUNner service
   TOWONEL_SELF_TCP_SERVICES: |
       [
         {"name":"stunner-turns-tls","origin":"stunner.stunner.svc.cluster.local:15349","listen_port":15349}

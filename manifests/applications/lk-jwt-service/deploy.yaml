@@ -16,6 +16,8 @@ spec:
       labels:
         app: lk-jwt-service
     spec:
+      # service name injection clash
+      enableServiceLinks: false
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
