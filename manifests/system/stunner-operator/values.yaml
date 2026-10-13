@@ -1,0 +1,9 @@
+standardCrds:
+  # meaning Gateway API CRDs: already installed (traefik kubernetesGateway)
+  enabled: false
+experimentalCrds:
+  enabled: false
+stunnerGatewayOperator:
+  dataplane:
+    spec:
+      enableMetricsEndpoint: true
