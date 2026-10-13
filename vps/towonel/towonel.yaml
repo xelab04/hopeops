@@ -44,6 +44,9 @@ services:
       - "8443"
     ports:
       - "51820:51820/udp"
+      # STUNner TURN ports
+      - "15349:15349/tcp"
+      - "13478:13478/udp"
     networks:
       - towonel-net
 
