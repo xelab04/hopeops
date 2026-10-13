@@ -116,6 +116,10 @@ Argo Application: `argo/applications/mautrix-telegram.yaml` (namespace `matrix-m
 - Telegram chat IDs in bridge commands: plain positive integer **with**
   type prefix for portals (`channel:2184238329`); the `-100` Bot-API prefix
   is never used.
+- **Reactions from relayed users are never bridged.** The bot can't attribute
+  them to a sender nor multiplex several users' same-emoji reactions through
+  one bot identity, so they're dropped by design. Reactions from *logged-in*
+  (puppeted) users bridge normally.
 
 ## Gotchas hit during setup (read before debugging)
 
