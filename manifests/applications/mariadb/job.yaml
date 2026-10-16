@@ -8,7 +8,7 @@ spec:
       restartPolicy: OnFailure
       containers:
       - name: db-init
-        image: mariadb:12.0
+        image: mariadb:12.3
 
         command: ["sh", "-c"]
         args:
