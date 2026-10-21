@@ -7,7 +7,7 @@ controllers:
       main:
         image:
           repository: "ghcr.io/jjgadgets/phanpy"
-          tag: 2025.01.26.24f03f5
+          tag: 2026.10.09.febb38d
         resources:
           requests:
             cpu: 10m
