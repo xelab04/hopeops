@@ -1,0 +1,297 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mautrix-telegram
+  # Namespace is set by the Argo Application destination (matrix-meetup).
+  # Non-secret bridge configuration. Secrets (tokens, api_id/hash, db uri)
+  # are injected via env vars, see secret-example.yaml.
+data:
+  config.yaml: |
+    # mautrix-telegram (Go, bridgev2) config for meetup.mu.
+    # Full reference: https://docs.mau.fi/bridges/go/setup.html (select telegram)
+    # and pregenerated examples at https://docs.mau.fi/configs/mautrix-telegram/latest
+    #
+    # First-time setup (tokens are generated, not hand-written):
+    #   1. Fill secret.yaml from secret-example.yaml and apply it.
+    #   2. Register the appservice on continuwuity (see README section below).
+    #   3. Log in + bridge the rooms (see README section below).
+
+    network:
+      # Get your own API keys at https://my.telegram.org/apps
+      # Injected via MAUTRIX_NETWORK__API_ID / MAUTRIX_NETWORK__API_HASH.
+      api_id: 0
+      api_hash: "PLACEHOLDER_SET_VIA_ENV"
+
+      device_info:
+        device_model: mautrix-telegram
+        system_version:
+        app_version: auto
+        lang_code: en
+        system_lang_code: en
+
+      animated_sticker:
+        target: gif
+        convert_from_webm: false
+        args:
+          width: 256
+          height: 256
+          fps: 25
+
+      member_list:
+        max_initial_sync: 100
+        sync_broadcast_channels: false
+        skip_deleted: true
+
+      ping:
+        interval_seconds: 30
+        timeout_seconds: 10
+
+      proxy:
+        type: disabled
+        address: "127.0.0.1:1080"
+        username:
+        password:
+
+      sync:
+        update_limit: 100
+        create_limit: 15
+        login_sync_limit: 15
+        direct_chats: true
+
+      takeout:
+        dialog_sync: false
+        forward_backfill: false
+        backward_backfill: false
+
+      max_member_count: -1
+      contact_avatars: false
+      contact_names: false
+      always_custom_emoji_reaction: false
+      saved_message_avatar: mxc://maunium.net/XhhfHoPejeneOngMyBbtyWDk
+      always_tombstone_on_supergroup_migration: false
+      image_as_file_pixels: 16777216
+      disable_view_once: false
+      video_url_preview_as_file: false
+      # Topic supergroups (like the Cloud Native MU group) are supported:
+      # the General topic maps to the Matrix room timeline,
+      # other topics map to Matrix threads.
+      bridge_communities: true
+
+    bridge:
+      command_prefix: '!tg'
+      personal_filtering_spaces: true
+      private_chat_portal_meta: true
+      async_events: false
+      split_portals: false
+      resend_bridge_info: false
+      no_bridge_info_state_key: false
+      bridge_status_notices: errors
+      transient_state_debounce: 0s
+      send_reconnect_wait: 0s
+      unknown_error_auto_reconnect: null
+      unknown_error_max_auto_reconnects: 10
+
+      bridge_matrix_leave: false
+      bridge_notices: false
+      tag_only_on_create: true
+      only_bridge_tags: [m.favourite, m.lowpriority]
+      mute_only_on_create: true
+      deduplicate_matrix_messages: false
+      portal_event_buffer: 64
+      cross_room_replies: false
+      revert_failed_state_changes: false
+      kick_matrix_users: true
+      enable_send_state_requests: false
+      phone_numbers_in_profile: false
+      view_limited_media: false
+
+      cleanup_on_logout:
+        enabled: false
+        manual:
+          private: nothing
+          relayed: nothing
+          shared_no_users: nothing
+          shared_has_users: nothing
+        bad_credentials:
+          private: nothing
+          relayed: nothing
+          shared_no_users: nothing
+          shared_has_users: nothing
+
+      # Relay mode: bridge #cloudnative-general:meetup.mu <-> Telegram
+      # General topic without every user logging in.
+      relay:
+        enabled: true
+        # false = Matrix room admins can set the relay themselves.
+        admin_only: false
+        prefer_default: true
+        allow_bridge: true
+        # Fill with the relay login ID after logging in (list-logins),
+        # e.g. default_relays: ["telegram:1"].
+        default_relays: []
+        user_distinguishers: ["🟦", "🟣", "🟩", "⭕️", "🔶", "⬛️", "🔵", "🟢"]
+        message_formats:
+          m.text: "<b>{{ .Sender.DisambiguatedName }}</b>: {{ .Message }}"
+          m.notice: "<b>{{ .Sender.DisambiguatedName }}</b>: {{ .Message }}"
+          m.emote: "* <b>{{ .Sender.DisambiguatedName }}</b> {{ .Message }}"
+          m.file: "<b>{{ .Sender.DisambiguatedName }}</b> sent a file{{ if .Caption }}: {{ .Caption }}{{ end }}"
+          m.image: "<b>{{ .Sender.DisambiguatedName }}</b> sent an image{{ if .Caption }}: {{ .Caption }}{{ end }}"
+          m.audio: "<b>{{ .Sender.DisambiguatedName }}</b> sent an audio file{{ if .Caption }}: {{ .Caption }}{{ end }}"
+          m.video: "<b>{{ .Sender.DisambiguatedName }}</b> sent a video{{ if .Caption }}: {{ .Caption }}{{ end }}"
+          m.location: "<b>{{ .Sender.DisambiguatedName }}</b> sent a location{{ if .Caption }}: {{ .Caption }}{{ end }}"
+        displayname_format: "{{ .DisambiguatedName }}"
+
+      portal_create_filter:
+        mode: deny
+        list: []
+        # Prevent the relay login auto-creating portals for every chat it is in.
+        always_deny_from_login: []
+
+      # NOTE: replace @admin:meetup.mu with your own MXID before first start.
+      permissions:
+        "*": relay
+        "meetup.mu": user
+        "@alex:meetup.mu": admin
+
+    database:
+      type: postgres
+      # Injected via MAUTRIX_DATABASE__URI, e.g.
+      # postgres://mautrix-telegram:PASSWORD@main-postgres-rw.cnpg.svc.cluster.local:5432/mautrix-telegram?sslmode=require
+      uri: "postgres://mautrix-telegram:PLACEHOLDER@main-postgres-rw.cnpg.svc.cluster.local:5432/mautrix-telegram?sslmode=require"
+      max_open_conns: 5
+      max_idle_conns: 1
+      max_conn_idle_time: null
+      max_conn_lifetime: null
+
+    homeserver:
+      # In-cluster address of the new matrix deployment (same namespace).
+      address: http://matrix-continuwuity:6167
+      domain: meetup.mu
+      software: standard
+      status_endpoint:
+      message_send_checkpoint_endpoint:
+      async_media: false
+      websocket: false
+      ping_interval_seconds: 0
+      retry_limit: 4
+
+    appservice:
+      # Reachable by the homeserver inside the cluster.
+      address: http://mautrix-telegram:29317
+      public_address:
+      hostname: 0.0.0.0
+      port: 29317
+      id: telegram
+      bot:
+        username: telegrambot
+        displayname: Telegram bridge bot
+        avatar: mxc://maunium.net/tJCRmUyJDsgRNgqhOgoiHWbX
+      ephemeral_events: true
+      async_transactions: false
+      # Generated with `mautrix-telegram -g`, injected via env (see secret-example.yaml).
+      as_token: "PLACEHOLDER_SET_VIA_ENV"
+      hs_token: "PLACEHOLDER_SET_VIA_ENV"
+      username_template: telegram_{{.}}
+      # {{.}} is replaced with the internal Telegram user ID.
+
+    matrix:
+      message_status_events: false
+      delivery_receipts: false
+      message_error_notices: true
+      sync_direct_chat_list: true
+      federate_rooms: true
+      upload_file_threshold: 5242880
+      ghost_extra_profile_info: false
+
+    analytics:
+      token: null
+      url: https://api.segment.io/v1/track
+      user_id: null
+
+    provisioning:
+      # Injected via MAUTRIX_PROVISIONING__SHARED_SECRET.
+      shared_secret: "PLACEHOLDER_SET_VIA_ENV"
+      allow_matrix_auth: true
+      debug_endpoints: false
+      enable_session_transfers: false
+      fail_on_webauthn: false
+      request_id_header: Request-Id
+      trust_incoming_request_id: false
+
+    public_media:
+      enabled: false
+      signing_key: generate
+      expiry: 0
+      hash_length: 32
+      path_prefix: /_mautrix/publicmedia
+      use_database: false
+
+    direct_media:
+      enabled: false
+      server_name: telegram-media.meetup.mu
+      well_known_response:
+      media_id_prefix:
+      allow_proxy: true
+      server_key: generate
+
+    backfill:
+      enabled: false
+      max_initial_messages: 50
+      max_catchup_messages: 500
+      unread_hours_threshold: 720
+      threads:
+        max_initial_messages: 50
+      queue:
+        enabled: false
+        manual: false
+        batch_size: 100
+        batch_delay: 20
+        max_batches: -1
+        max_batches_override: {}
+
+    double_puppet:
+      servers: {}
+      allow_discovery: false
+      secrets: {}
+
+    encryption:
+      # Allow bridging encrypted Matrix rooms (needs pickle_key in Secret).
+      allow: true
+      default: false
+      require: false
+      appservice: false
+      msc4190: false
+      msc4392: false
+      self_sign: false
+      allow_key_sharing: true
+      plaintext_mentions: false
+      # Injected via MAUTRIX_ENCRYPTION__PICKLE_KEY (or "generate" on first run).
+      pickle_key: "PLACEHOLDER_SET_VIA_ENV"
+      delete_keys:
+        delete_outbound_on_ack: false
+        dont_store_outbound: false
+        ratchet_on_decrypt: false
+        delete_fully_used_on_decrypt: false
+        delete_prev_on_new_session: false
+        delete_on_device_delete: false
+        periodically_delete_expired: false
+        delete_outdated_inbound: false
+      verification_levels:
+        receive: unverified
+        send: unverified
+        share: cross-signed-tofu
+      rotation:
+        enable_custom: false
+        milliseconds: 604800000
+        messages: 100
+        disable_device_change_key_rotation: false
+
+    # Env overrides: MAUTRIX_SECTION__KEY (double underscore = nesting),
+    # e.g. MAUTRIX_APPSERVICE__AS_TOKEN. _FILE suffix reads value from a file.
+    env_config_prefix: MAUTRIX_
+
+    logging:
+      min_level: info
+      writers:
+        - type: stdout
+          format: pretty-colored

@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mautrix-telegram
+  labels:
+    app: mautrix-telegram
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: mautrix-telegram
+  template:
+    metadata:
+      labels:
+        app: mautrix-telegram
+    spec:
+      enableServiceLinks: false
+      initContainers:
+      - name: copy-config
+        image: busybox:1.36
+        imagePullPolicy: IfNotPresent
+        command: ["sh", "-c", "cp /config-template/config.yaml /config/config.yaml"]
+        volumeMounts:
+        - name: bridge-config-template
+          mountPath: /config-template
+          readOnly: true
+        - name: bridge-config
+          mountPath: /config
+      containers:
+      - name: mautrix-telegram
+        image: dock.mau.dev/mautrix/telegram:latest
+        imagePullPolicy: Always
+        # Image CMD is /docker-run.sh (interactive first-run helper);
+        # call the bridge binary directly with our ConfigMap config.
+        command: ["/usr/bin/mautrix-telegram"]
+        args: ["-c", "/config/config.yaml"]
+        ports:
+        - containerPort: 29317
+          name: appservice
+
+        resources:
+          requests:
+            cpu: 10m
+            memory: 128M
+
+        env:
+        - name: MAUTRIX_APPSERVICE__AS_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: mautrix-telegram
+              key: AS_TOKEN
+        - name: MAUTRIX_APPSERVICE__HS_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: mautrix-telegram
+              key: HS_TOKEN
+        - name: MAUTRIX_NETWORK__API_ID
+          valueFrom:
+            secretKeyRef:
+              name: mautrix-telegram
+              key: API_ID
+        - name: MAUTRIX_NETWORK__API_HASH
+          valueFrom:
+            secretKeyRef:
+              name: mautrix-telegram
+              key: API_HASH
+        - name: MAUTRIX_DATABASE__URI
+          valueFrom:
+            secretKeyRef:
+              name: mautrix-telegram
+              key: DATABASE_URI
+        - name: MAUTRIX_PROVISIONING__SHARED_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: mautrix-telegram
+              key: PROVISIONING_SECRET
+        - name: MAUTRIX_ENCRYPTION__PICKLE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: mautrix-telegram
+              key: PICKLE_KEY
+
+        volumeMounts:
+        - name: bridge-config
+          mountPath: /config
+
+      volumes:
+      - name: bridge-config-template
+        configMap:
+          name: mautrix-telegram
+      - name: bridge-config
+        emptyDir: {}

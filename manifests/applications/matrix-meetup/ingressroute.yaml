@@ -36,6 +36,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: matrix-conduit
+            name: matrix-continuwuity
             port:
               number: 6167
