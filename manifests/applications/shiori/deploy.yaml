@@ -23,7 +23,7 @@ spec:
           medium: Memory
       containers:
       - name: shiori
-        image: ghcr.io/go-shiori/shiori:latest
+        image: ghcr.io/go-shiori/shiori:alpine-v1.8.0-9-g36f3b55
         command: ["/usr/bin/shiori", "serve"]
         imagePullPolicy: Always
         ports:

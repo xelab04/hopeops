@@ -16,7 +16,7 @@ spec:
         app: memtly
     spec:
       containers:
-      - image: memtly/memtly:latest
+      - image: mirror.gcr.io/memtly/memtly:1.0.7.6
         name: memtly
         ports:
         - containerPort: 5000

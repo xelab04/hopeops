@@ -30,7 +30,7 @@ spec:
           mountPath: /config
       containers:
       - name: mautrix-telegram
-        image: dock.mau.dev/mautrix/telegram:latest
+        image: dock.mau.dev/mautrix/telegram:v26.10
         imagePullPolicy: Always
         # Image CMD is /docker-run.sh (interactive first-run helper);
         # call the bridge binary directly with our ConfigMap config.
