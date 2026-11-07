@@ -1,16 +1,24 @@
-#apiVersion: networking.k8s.io/v1
-#kind: Ingress
-#metadata:
-#  name: forgejo
-#spec:
-#  rules:
-#  - host: git.alexbissessur.dev
-#    http:
-#      paths:
-#      - path: /
-#        pathType: Prefix
-#        backend:
-#          service:
-#            name: forgejo
-#            port:
-#              number: 80
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: forgejo
+  annotations:
+    cert-manager.io/cluster-issuer: "prod-issuer"
+spec:
+  ingressClassName: traefik
+  tls:
+  - hosts:
+    - git.alexbissessur.dev
+    secretName: forgejo-tls
+  rules:
+  - host: git.alexbissessur.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: forgejo-service
+            port:
+              number: 80

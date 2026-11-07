@@ -109,3 +109,18 @@ spec:
     name: alexbissessur-db-password
 
 ---
+
+
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: vulnerabilities-role
+spec:
+  cluster:
+    name: main-postgres
+  name: vulnerabilities
+  login: true
+  passwordSecret:
+    name: vulnerabilities-db-password
+
+---

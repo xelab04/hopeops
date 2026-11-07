@@ -88,3 +88,16 @@ spec:
     name: main-postgres
 
 ---
+
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: vulnerabilities
+  namespace: cnpg
+spec:
+  name: vulnerabilities
+  owner: vulnerabilities
+  cluster:
+    name: main-postgres
+
+---
