@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ./home.nix
       ./kubernetes.nix
+      ./podman.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -132,4 +133,3 @@
   system.stateVersion = "26.05"; # Did you read the comment?
 
 }
-
