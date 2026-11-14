@@ -13,6 +13,7 @@
   services.k3s.enable = true;
   services.k3s.role = "server";
   services.k3s.extraFlags = toString [
+    "--tls-san dyn.alexbissessur.dev" 
     # "--debug" # Optionally add additional args to k3s
   ];
 }
